@@ -38,19 +38,15 @@ knitr::opts_chunk$set(dev = "ragg_png")
 
 👩 Cara Thompson
 
-🌱 Love for patterns in music & language, and a fascination with the human brain `|>` 
-
-  👩‍💻 Psychology PhD `|>` 
-
+👩‍💻  Love for patterns in music & language, and a fascination with the human brain `|>` 
+ Psychology PhD `|>` 
   Analysis of postgraduate medical examinations `|>` 
-
   Data Visualisation Consultant
+  
+  <br>
 
 ::: fragment
 💙 Helping others maximise the impact of their expertise
-
-  - Creating clear and memorable visualisations
-  - Crafting data-to-viz solutions to automate the "boring" (fun) stuff
 :::
 
 ::: footer
@@ -2361,6 +2357,39 @@ themed_plot +
 ```
 
 
+## <span style=color:#28A569>#3</span> - Reduce unnecessary eye movement 
+
+We might as well add a bit of extra info (with text hierarchy!) to our labels...
+
+```{r}
+#| output-location: column-fragment
+#| echo: true
+#| code-line-numbers: "8"
+themed_plot +
+  scale_y_continuous(expand = c(0, 0.5)) +
+  theme(strip.text = element_text(hjust = 0.03)) +
+  scale_colour_identity() +
+  ggtext::geom_textbox(aes(
+    label = paste0("<span style=font-size:12pt>", 
+                   dose, "mg/day</span><br>", 
+                   janitor::round_half_up(mean_length), 
+                   "mm"),
+    hjust = case_when(mean_length < 15 ~ 0,
+                      TRUE ~ 1),
+    halign = case_when(mean_length < 15 ~ 0,
+                       TRUE ~ 1),
+    colour = case_when(mean_length > 15 ~ "#FFFFFF",
+                       TRUE ~ vit_c_palette[supplement])),
+    size = 6,
+    fill = NA,
+    box.colour = NA,
+    family = "Cabin",
+    fontface = "bold")
+
+```
+
+
+
 # Wait, but why? {background=#2C3D4F}
 
 ::: {.fragment}
@@ -2368,6 +2397,13 @@ themed_plot +
 ![](https://img.memegenerator.net/images/8719638.jpg)
 
 :::
+
+
+# Wait, but why? {background=#2C3D4F}
+
+`new_data %>% guinea_pig_plot()`
+
+![](images/guinea-pig-plot.gif)
 
 
 ## <span style=color:#28A569>#3</span> - Reduce unnecessary eye movement {background=#2C3D4F}
@@ -2400,7 +2436,7 @@ themed_plot +
   ggtext::geom_textbox(aes(
     label = paste0("<span style=font-size:12pt>", 
                    dose, "mg/day</span><br>", 
-                   mean_length, "mm"),
+                   janitor::round_half_up(mean_length), "mm"),
     hjust = case_when(mean_length < 15 ~ 0,
                       TRUE ~ 1),
     halign = case_when(mean_length < 15 ~ 0,
@@ -2425,10 +2461,10 @@ themed_plot +
 - See what happens when you apply your plot code to random subsets of your data
 
 
-**You have 5 minutes!**  📊 🎨 ☕  
+**You have 10 minutes!**  📊 🎨 ☕  
 
 ```{r}
-countdown::countdown(minutes = 5L, warn_when = 60, style = "border-color: #28A569")
+countdown::countdown(minutes = 10L, warn_when = 60, style = "border-color: #28A569")
 ```
 
 
@@ -3015,7 +3051,11 @@ penguins_themed_plot +
 ::::
 
 
-## <span style=color:#28A569>#4</span> - Highlight important data points {auto-animate=true}
+# Wait, but why again?  {background=#2C3D4F}
+
+`new_data %>% penguin_plot()`
+
+![](images/penguin-plot.gif)
 
 ## Level up your plots
 
@@ -3039,7 +3079,7 @@ themed_plot +
   ggtext::geom_textbox(aes(
     label = paste0("<span style=font-size:12pt>", 
                    dose, "mg/day</span><br>", 
-                   mean_length, "mm"),
+                   janitor::round_half_up(mean_length), "mm"),
     hjust = case_when(mean_length < 15 ~ 0,
                       TRUE ~ 1),
     halign = case_when(mean_length < 15 ~ 0,
@@ -3149,17 +3189,6 @@ The possibilities are endless!
 
 # {background=#2C3D4F}
 
-::::{.columns}
-
-
-:::{.column width=50%}
-
-![](images/clapping-pingu.gif)
-
-:::
-
-
-:::{.column width=50%}
 
 <center>
 <h1>Over to you!</h1>
@@ -3170,19 +3199,10 @@ hello@cararthompson.com
 
 Tw/Li: @cararthompson
 
-☕💻
+<br>
 
-
-<span style=color:#28A569>____</span>
-<br><br>
-Dataviz Commissions<br>
-Dataviz Design Systems<br>
-Training & Consultations<br>
+Dataviz Design Systems <span style=color:#28A569>|</span> Dataviz Commissions <span style=color:#28A569>|</span> Training & Consultations
 </center>
-
-:::
-
-::::
 
 :::footer
 [cararthompson.com](https://www.cararthompson.com)

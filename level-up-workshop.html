@@ -409,16 +409,10 @@
 
 </div>
 <p>👩 Cara Thompson</p>
-<p>🌱 Love for patterns in music &amp; language, and a fascination with the human brain <code>|&gt;</code></p>
-<p>👩‍💻 Psychology PhD <code>|&gt;</code></p>
-<p>Analysis of postgraduate medical examinations <code>|&gt;</code></p>
-<p>Data Visualisation Consultant</p>
+<p>👩‍💻 Love for patterns in music &amp; language, and a fascination with the human brain <code>|&gt;</code> Psychology PhD <code>|&gt;</code> Analysis of postgraduate medical examinations <code>|&gt;</code> Data Visualisation Consultant</p>
+<p><br></p>
 <div class="fragment">
 <p>💙 Helping others maximise the impact of their expertise</p>
-<ul>
-<li>Creating clear and memorable visualisations</li>
-<li>Crafting data-to-viz solutions to automate the “boring” (fun) stuff</li>
-</ul>
 </div>
 <div class="footer">
 <p>Find out more: <a href="https://cararthompson.com/about">cararthompson.com/about</a></p>
@@ -1610,7 +1604,7 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <p><strong>You have 10 minutes!</strong> 📊 🎨 ☕</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_13df2552" data-warn-when="60" data-update-every="1" tabindex="0" style="right:0;bottom:0;border-color: #28A569">
+<div class="countdown" id="timer_2a547df4" data-warn-when="60" data-update-every="1" tabindex="0" style="right:0;bottom:0;border-color: #28A569">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -2182,7 +2176,7 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <p><strong>You have 10 minutes!</strong> 📊 🎨 ☕</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_6a9305c1" data-warn-when="60" data-update-every="1" tabindex="0" style="right:0;bottom:0;border-color: #28A569">
+<div class="countdown" id="timer_a60cb686" data-warn-when="60" data-update-every="1" tabindex="0" style="right:0;bottom:0;border-color: #28A569">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -2675,19 +2669,61 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 </div>
 </div>
 </div>
+</section>
+<section id="reduce-unnecessary-eye-movement-15" class="slide level2">
+<h2><span style="color:#28A569">#3</span> - Reduce unnecessary eye movement</h2>
+<p>We might as well add a bit of extra info (with text hierarchy!) to our labels…</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb65" data-code-line-numbers="8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a>themed_plot <span class="sc">+</span></span>
+<span id="cb65-2"><a href="#cb65-2"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb65-3"><a href="#cb65-3"></a>  <span class="fu">theme</span>(<span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.03</span>)) <span class="sc">+</span></span>
+<span id="cb65-4"><a href="#cb65-4"></a>  <span class="fu">scale_colour_identity</span>() <span class="sc">+</span></span>
+<span id="cb65-5"><a href="#cb65-5"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="fu">aes</span>(</span>
+<span id="cb65-6"><a href="#cb65-6"></a>    <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"&lt;span style=font-size:12pt&gt;"</span>, </span>
+<span id="cb65-7"><a href="#cb65-7"></a>                   dose, <span class="st">"mg/day&lt;/span&gt;&lt;br&gt;"</span>, </span>
+<span id="cb65-8"><a href="#cb65-8"></a>                   janitor<span class="sc">::</span><span class="fu">round_half_up</span>(mean_length), </span>
+<span id="cb65-9"><a href="#cb65-9"></a>                   <span class="st">"mm"</span>),</span>
+<span id="cb65-10"><a href="#cb65-10"></a>    <span class="at">hjust =</span> <span class="fu">case_when</span>(mean_length <span class="sc">&lt;</span> <span class="dv">15</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb65-11"><a href="#cb65-11"></a>                      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">1</span>),</span>
+<span id="cb65-12"><a href="#cb65-12"></a>    <span class="at">halign =</span> <span class="fu">case_when</span>(mean_length <span class="sc">&lt;</span> <span class="dv">15</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb65-13"><a href="#cb65-13"></a>                       <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">1</span>),</span>
+<span id="cb65-14"><a href="#cb65-14"></a>    <span class="at">colour =</span> <span class="fu">case_when</span>(mean_length <span class="sc">&gt;</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">"#FFFFFF"</span>,</span>
+<span id="cb65-15"><a href="#cb65-15"></a>                       <span class="cn">TRUE</span> <span class="sc">~</span> vit_c_palette[supplement])),</span>
+<span id="cb65-16"><a href="#cb65-16"></a>    <span class="at">size =</span> <span class="dv">6</span>,</span>
+<span id="cb65-17"><a href="#cb65-17"></a>    <span class="at">fill =</span> <span class="cn">NA</span>,</span>
+<span id="cb65-18"><a href="#cb65-18"></a>    <span class="at">box.colour =</span> <span class="cn">NA</span>,</span>
+<span id="cb65-19"><a href="#cb65-19"></a>    <span class="at">family =</span> <span class="st">"Cabin"</span>,</span>
+<span id="cb65-20"><a href="#cb65-20"></a>    <span class="at">fontface =</span> <span class="st">"bold"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column fragment">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-75-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-92"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-75-1.png" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
 </section></section>
-<section>
 <section id="wait-but-why" class="title-slide slide level1 center" data-background="#2C3D4F">
 <h1>Wait, but why?</h1>
 <div class="fragment">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="https://img.memegenerator.net/images/8719638.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-92"><img data-src="https://img.memegenerator.net/images/8719638.jpg"></a></p>
+<p><a href="https://img.memegenerator.net/images/8719638.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-93"><img data-src="https://img.memegenerator.net/images/8719638.jpg"></a></p>
 </figure>
 </div>
 </div>
 </section>
-<section id="reduce-unnecessary-eye-movement-15" class="slide level2" data-background="#2C3D4F">
+
+<section>
+<section id="wait-but-why-1" class="title-slide slide level1 center" data-background="#2C3D4F">
+<h1>Wait, but why?</h1>
+<p><code>new_data %&gt;% guinea_pig_plot()</code></p>
+
+<img data-src="images/guinea-pig-plot.gif" class="r-stretch quarto-figure-center"></section>
+<section id="reduce-unnecessary-eye-movement-16" class="slide level2" data-background="#2C3D4F">
 <h2><span style="color:#28A569">#3</span> - Reduce unnecessary eye movement</h2>
 <p>Easier than you think and makes a big difference! 🦸</p>
 <div class="columns">
@@ -2696,7 +2732,7 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-75-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-93"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-75-1.png" width="960"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-76-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-95"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-76-1.png" width="960"></a></p>
 </figure>
 </div>
 </div>
@@ -2706,7 +2742,7 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-76-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-94"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-76-1.png" width="960"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-77-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-96"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-77-1.png" width="960"></a></p>
 </figure>
 </div>
 </div>
@@ -2722,12 +2758,12 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <li>Add in some styling and conditional alignments</li>
 <li>See what happens when you apply your plot code to random subsets of your data</li>
 </ul>
-<p><strong>You have 5 minutes!</strong> 📊 🎨 ☕</p>
+<p><strong>You have 10 minutes!</strong> 📊 🎨 ☕</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_40c9a2df" data-warn-when="60" data-update-every="1" tabindex="0" style="right:0;bottom:0;border-color: #28A569">
+<div class="countdown" id="timer_5e3eea54" data-warn-when="60" data-update-every="1" tabindex="0" style="right:0;bottom:0;border-color: #28A569">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
-<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
@@ -2736,7 +2772,7 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <h2>Level up your plots</h2>
 <h3 class="faded" id="use-colour-purposefully-32"><span style="color:#28A569">#1</span> - Use colour purposefully</h3>
 <h3 class="faded" id="add-text-hierarchy-22"><span style="color:#28A569">#2</span> - Add text hierarchy</h3>
-<h3 class="faded" id="reduce-unnecessary-eye-movement-16"><span style="color:#28A569">#3</span> - Reduce unnecessary eye movement</h3>
+<h3 class="faded" id="reduce-unnecessary-eye-movement-17"><span style="color:#28A569">#3</span> - Reduce unnecessary eye movement</h3>
 <h3 id="highlight-important-patterns-3"><span style="color:#28A569">#4</span> - Highlight important patterns</h3>
 </section>
 <section id="highlight-important-patterns-4" class="slide level2">
@@ -2754,7 +2790,7 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-78-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-95"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-78-1.png" width="960"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-79-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-97"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-79-1.png" width="960"></a></p>
 </figure>
 </div>
 </div>
@@ -2766,7 +2802,7 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-79-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-96"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-79-1.png" width="960"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-80-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-98"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-80-1.png" width="960"></a></p>
 </figure>
 </div>
 </div>
@@ -2783,18 +2819,18 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <p>Consider text boxes instead of a legend…</p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a><span class="co"># Create a new tibble</span></span>
-<span id="cb65-2"><a href="#cb65-2"></a>penguin_summaries <span class="ot">&lt;-</span> palmerpenguins<span class="sc">::</span>penguins <span class="sc">%&gt;%</span></span>
-<span id="cb65-3"><a href="#cb65-3"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
-<span id="cb65-4"><a href="#cb65-4"></a>  <span class="fu">summarise</span>(<span class="at">bill_depth_mm =</span> <span class="fu">mean</span>(bill_depth_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb65-5"><a href="#cb65-5"></a>            <span class="at">bill_length_mm =</span> <span class="fu">mean</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb65-6"><a href="#cb65-6"></a>  <span class="fu">mutate</span>(<span class="at">commentary =</span> <span class="fu">case_when</span>(</span>
-<span id="cb65-7"><a href="#cb65-7"></a>    species <span class="sc">==</span> <span class="st">"Adelie"</span> <span class="sc">~</span></span>
-<span id="cb65-8"><a href="#cb65-8"></a>      <span class="st">"The Adelie penguins tried varying the amount of banana in the mix.</span></span>
-<span id="cb65-9"><a href="#cb65-9"></a><span class="st">       Turns out, even a hint of green banana is detrimental to yumminess!"</span>,</span>
-<span id="cb65-10"><a href="#cb65-10"></a>    species <span class="sc">==</span> <span class="st">"Gentoo"</span> <span class="sc">~</span></span>
-<span id="cb65-11"><a href="#cb65-11"></a>      <span class="st">"Over-ripe bananas and typically shorter baking times."</span>,</span>
-<span id="cb65-12"><a href="#cb65-12"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Ripe bananas and slightly longer cooking times."</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a><span class="co"># Create a new tibble</span></span>
+<span id="cb66-2"><a href="#cb66-2"></a>penguin_summaries <span class="ot">&lt;-</span> palmerpenguins<span class="sc">::</span>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb66-3"><a href="#cb66-3"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
+<span id="cb66-4"><a href="#cb66-4"></a>  <span class="fu">summarise</span>(<span class="at">bill_depth_mm =</span> <span class="fu">mean</span>(bill_depth_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb66-5"><a href="#cb66-5"></a>            <span class="at">bill_length_mm =</span> <span class="fu">mean</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb66-6"><a href="#cb66-6"></a>  <span class="fu">mutate</span>(<span class="at">commentary =</span> <span class="fu">case_when</span>(</span>
+<span id="cb66-7"><a href="#cb66-7"></a>    species <span class="sc">==</span> <span class="st">"Adelie"</span> <span class="sc">~</span></span>
+<span id="cb66-8"><a href="#cb66-8"></a>      <span class="st">"The Adelie penguins tried varying the amount of banana in the mix.</span></span>
+<span id="cb66-9"><a href="#cb66-9"></a><span class="st">       Turns out, even a hint of green banana is detrimental to yumminess!"</span>,</span>
+<span id="cb66-10"><a href="#cb66-10"></a>    species <span class="sc">==</span> <span class="st">"Gentoo"</span> <span class="sc">~</span></span>
+<span id="cb66-11"><a href="#cb66-11"></a>      <span class="st">"Over-ripe bananas and typically shorter baking times."</span>,</span>
+<span id="cb66-12"><a href="#cb66-12"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Ripe bananas and slightly longer cooking times."</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -2803,7 +2839,7 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <p>Consider text boxes instead of a legend…</p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>penguin_summaries</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1"></a>penguin_summaries</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 x 4
   species   bill_depth_mm bill_length_mm commentary                             
@@ -2820,18 +2856,18 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <p>Consider text boxes instead of a legend…</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb68" data-code-line-numbers="2-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>penguins_themed_plot <span class="sc">+</span></span>
-<span id="cb68-2"><a href="#cb68-2"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_summaries,</span>
-<span id="cb68-3"><a href="#cb68-3"></a>                       <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(</span>
-<span id="cb68-4"><a href="#cb68-4"></a>                         <span class="st">"**Team "</span>, species, <span class="st">"**"</span>,</span>
-<span id="cb68-5"><a href="#cb68-5"></a>                         <span class="st">"&lt;br&gt;&lt;span style = </span><span class="sc">\"</span><span class="st">color:"</span>,</span>
-<span id="cb68-6"><a href="#cb68-6"></a>                         banana_colours<span class="sc">$</span>light_text,</span>
-<span id="cb68-7"><a href="#cb68-7"></a>                         <span class="st">"</span><span class="sc">\"</span><span class="st">&gt;"</span>, commentary, <span class="st">"&lt;/span&gt;"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69" data-code-line-numbers="2-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1"></a>penguins_themed_plot <span class="sc">+</span></span>
+<span id="cb69-2"><a href="#cb69-2"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_summaries,</span>
+<span id="cb69-3"><a href="#cb69-3"></a>                       <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(</span>
+<span id="cb69-4"><a href="#cb69-4"></a>                         <span class="st">"**Team "</span>, species, <span class="st">"**"</span>,</span>
+<span id="cb69-5"><a href="#cb69-5"></a>                         <span class="st">"&lt;br&gt;&lt;span style = </span><span class="sc">\"</span><span class="st">color:"</span>,</span>
+<span id="cb69-6"><a href="#cb69-6"></a>                         banana_colours<span class="sc">$</span>light_text,</span>
+<span id="cb69-7"><a href="#cb69-7"></a>                         <span class="st">"</span><span class="sc">\"</span><span class="st">&gt;"</span>, commentary, <span class="st">"&lt;/span&gt;"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-82-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-97"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-82-1.png" width="672"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-83-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-99"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-83-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -2843,23 +2879,23 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <p>Consider text boxes instead of a legend…</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb69" data-code-line-numbers="8-12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1"></a>penguins_themed_plot <span class="sc">+</span></span>
-<span id="cb69-2"><a href="#cb69-2"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_summaries,</span>
-<span id="cb69-3"><a href="#cb69-3"></a>                       <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(</span>
-<span id="cb69-4"><a href="#cb69-4"></a>                         <span class="st">"**Team "</span>, species, <span class="st">"**"</span>,</span>
-<span id="cb69-5"><a href="#cb69-5"></a>                         <span class="st">"&lt;br&gt;&lt;span style = </span><span class="sc">\"</span><span class="st">color:"</span>,</span>
-<span id="cb69-6"><a href="#cb69-6"></a>                         banana_colours<span class="sc">$</span>light_text,</span>
-<span id="cb69-7"><a href="#cb69-7"></a>                         <span class="st">"</span><span class="sc">\"</span><span class="st">&gt;"</span>, commentary, <span class="st">"&lt;/span&gt;"</span>)),</span>
-<span id="cb69-8"><a href="#cb69-8"></a>                       <span class="at">family =</span> <span class="st">"DM Sans"</span>,</span>
-<span id="cb69-9"><a href="#cb69-9"></a>                       <span class="at">size =</span> <span class="fl">3.5</span>,</span>
-<span id="cb69-10"><a href="#cb69-10"></a>                       <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">9</span>, <span class="st">"line"</span>),</span>
-<span id="cb69-11"><a href="#cb69-11"></a>                       <span class="at">alpha =</span> <span class="fl">0.9</span>,</span>
-<span id="cb69-12"><a href="#cb69-12"></a>                       <span class="at">box.colour =</span> <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70" data-code-line-numbers="8-12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a>penguins_themed_plot <span class="sc">+</span></span>
+<span id="cb70-2"><a href="#cb70-2"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_summaries,</span>
+<span id="cb70-3"><a href="#cb70-3"></a>                       <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(</span>
+<span id="cb70-4"><a href="#cb70-4"></a>                         <span class="st">"**Team "</span>, species, <span class="st">"**"</span>,</span>
+<span id="cb70-5"><a href="#cb70-5"></a>                         <span class="st">"&lt;br&gt;&lt;span style = </span><span class="sc">\"</span><span class="st">color:"</span>,</span>
+<span id="cb70-6"><a href="#cb70-6"></a>                         banana_colours<span class="sc">$</span>light_text,</span>
+<span id="cb70-7"><a href="#cb70-7"></a>                         <span class="st">"</span><span class="sc">\"</span><span class="st">&gt;"</span>, commentary, <span class="st">"&lt;/span&gt;"</span>)),</span>
+<span id="cb70-8"><a href="#cb70-8"></a>                       <span class="at">family =</span> <span class="st">"DM Sans"</span>,</span>
+<span id="cb70-9"><a href="#cb70-9"></a>                       <span class="at">size =</span> <span class="fl">3.5</span>,</span>
+<span id="cb70-10"><a href="#cb70-10"></a>                       <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">9</span>, <span class="st">"line"</span>),</span>
+<span id="cb70-11"><a href="#cb70-11"></a>                       <span class="at">alpha =</span> <span class="fl">0.9</span>,</span>
+<span id="cb70-12"><a href="#cb70-12"></a>                       <span class="at">box.colour =</span> <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-83-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-98"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-83-1.png" width="672"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-84-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-100"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-84-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -2871,15 +2907,15 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <p>I <span class="emoji" data-emoji="heart">❤️</span> <span class="emoji" data-emoji="package">📦</span> <code>{geomtextpath}</code></p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb70" data-code-line-numbers="2-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a>penguins_themed_plot <span class="sc">+</span></span>
-<span id="cb70-2"><a href="#cb70-2"></a>  geomtextpath<span class="sc">::</span><span class="fu">geom_textpath</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(</span>
-<span id="cb70-3"><a href="#cb70-3"></a>    <span class="st">"Team "</span>, species)),</span>
-<span id="cb70-4"><a href="#cb70-4"></a>    <span class="at">stat =</span> <span class="st">"smooth"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71" data-code-line-numbers="2-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1"></a>penguins_themed_plot <span class="sc">+</span></span>
+<span id="cb71-2"><a href="#cb71-2"></a>  geomtextpath<span class="sc">::</span><span class="fu">geom_textpath</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(</span>
+<span id="cb71-3"><a href="#cb71-3"></a>    <span class="st">"Team "</span>, species)),</span>
+<span id="cb71-4"><a href="#cb71-4"></a>    <span class="at">stat =</span> <span class="st">"smooth"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-84-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-99"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-84-1.png" width="672"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-85-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-101"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-85-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -2891,21 +2927,21 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <p>I <span class="emoji" data-emoji="heart">❤️</span> <span class="emoji" data-emoji="package">📦</span> <code>{geomtextpath}</code></p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb71" data-code-line-numbers="2-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1"></a>penguins_themed_plot <span class="sc">+</span></span>
-<span id="cb71-2"><a href="#cb71-2"></a>  <span class="fu">geom_rect</span>(<span class="at">xmin =</span> <span class="sc">-</span><span class="cn">Inf</span>,</span>
-<span id="cb71-3"><a href="#cb71-3"></a>            <span class="at">xmax =</span> <span class="cn">Inf</span>,</span>
-<span id="cb71-4"><a href="#cb71-4"></a>            <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>,</span>
-<span id="cb71-5"><a href="#cb71-5"></a>            <span class="at">ymax =</span> <span class="cn">Inf</span>,</span>
-<span id="cb71-6"><a href="#cb71-6"></a>            <span class="at">fill =</span> <span class="st">"#FFFFFF"</span>,</span>
-<span id="cb71-7"><a href="#cb71-7"></a>            <span class="at">alpha =</span> <span class="fl">0.01</span>) <span class="sc">+</span></span>
-<span id="cb71-8"><a href="#cb71-8"></a>  geomtextpath<span class="sc">::</span><span class="fu">geom_textpath</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(</span>
-<span id="cb71-9"><a href="#cb71-9"></a>    <span class="st">"Team "</span>, species)),</span>
-<span id="cb71-10"><a href="#cb71-10"></a>    <span class="at">stat =</span> <span class="st">"smooth"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72" data-code-line-numbers="2-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a>penguins_themed_plot <span class="sc">+</span></span>
+<span id="cb72-2"><a href="#cb72-2"></a>  <span class="fu">geom_rect</span>(<span class="at">xmin =</span> <span class="sc">-</span><span class="cn">Inf</span>,</span>
+<span id="cb72-3"><a href="#cb72-3"></a>            <span class="at">xmax =</span> <span class="cn">Inf</span>,</span>
+<span id="cb72-4"><a href="#cb72-4"></a>            <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>,</span>
+<span id="cb72-5"><a href="#cb72-5"></a>            <span class="at">ymax =</span> <span class="cn">Inf</span>,</span>
+<span id="cb72-6"><a href="#cb72-6"></a>            <span class="at">fill =</span> <span class="st">"#FFFFFF"</span>,</span>
+<span id="cb72-7"><a href="#cb72-7"></a>            <span class="at">alpha =</span> <span class="fl">0.01</span>) <span class="sc">+</span></span>
+<span id="cb72-8"><a href="#cb72-8"></a>  geomtextpath<span class="sc">::</span><span class="fu">geom_textpath</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(</span>
+<span id="cb72-9"><a href="#cb72-9"></a>    <span class="st">"Team "</span>, species)),</span>
+<span id="cb72-10"><a href="#cb72-10"></a>    <span class="at">stat =</span> <span class="st">"smooth"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-85-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-100"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-85-1.png" width="672"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-86-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-102"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-86-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -2917,25 +2953,25 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <p>I <span class="emoji" data-emoji="heart">❤️</span> <span class="emoji" data-emoji="package">📦</span> <code>{geomtextpath}</code></p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb72" data-code-line-numbers="11-14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a>penguins_themed_plot <span class="sc">+</span></span>
-<span id="cb72-2"><a href="#cb72-2"></a>  <span class="fu">geom_rect</span>(<span class="at">xmin =</span> <span class="sc">-</span><span class="cn">Inf</span>,</span>
-<span id="cb72-3"><a href="#cb72-3"></a>            <span class="at">xmax =</span> <span class="cn">Inf</span>,</span>
-<span id="cb72-4"><a href="#cb72-4"></a>            <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>,</span>
-<span id="cb72-5"><a href="#cb72-5"></a>            <span class="at">ymax =</span> <span class="cn">Inf</span>,</span>
-<span id="cb72-6"><a href="#cb72-6"></a>            <span class="at">fill =</span> <span class="st">"#FFFFFF"</span>,</span>
-<span id="cb72-7"><a href="#cb72-7"></a>            <span class="at">alpha =</span> <span class="fl">0.01</span>) <span class="sc">+</span></span>
-<span id="cb72-8"><a href="#cb72-8"></a>  geomtextpath<span class="sc">::</span><span class="fu">geom_textpath</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(</span>
-<span id="cb72-9"><a href="#cb72-9"></a>    <span class="st">"Team "</span>, species)),</span>
-<span id="cb72-10"><a href="#cb72-10"></a>    <span class="at">stat =</span> <span class="st">"smooth"</span>,</span>
-<span id="cb72-11"><a href="#cb72-11"></a>    <span class="at">family =</span> <span class="st">"DM Sans"</span>,</span>
-<span id="cb72-12"><a href="#cb72-12"></a>    <span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
-<span id="cb72-13"><a href="#cb72-13"></a>    <span class="at">vjust =</span> <span class="fl">0.2</span>,</span>
-<span id="cb72-14"><a href="#cb72-14"></a>    <span class="at">hjust =</span> <span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73" data-code-line-numbers="11-14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1"></a>penguins_themed_plot <span class="sc">+</span></span>
+<span id="cb73-2"><a href="#cb73-2"></a>  <span class="fu">geom_rect</span>(<span class="at">xmin =</span> <span class="sc">-</span><span class="cn">Inf</span>,</span>
+<span id="cb73-3"><a href="#cb73-3"></a>            <span class="at">xmax =</span> <span class="cn">Inf</span>,</span>
+<span id="cb73-4"><a href="#cb73-4"></a>            <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>,</span>
+<span id="cb73-5"><a href="#cb73-5"></a>            <span class="at">ymax =</span> <span class="cn">Inf</span>,</span>
+<span id="cb73-6"><a href="#cb73-6"></a>            <span class="at">fill =</span> <span class="st">"#FFFFFF"</span>,</span>
+<span id="cb73-7"><a href="#cb73-7"></a>            <span class="at">alpha =</span> <span class="fl">0.01</span>) <span class="sc">+</span></span>
+<span id="cb73-8"><a href="#cb73-8"></a>  geomtextpath<span class="sc">::</span><span class="fu">geom_textpath</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(</span>
+<span id="cb73-9"><a href="#cb73-9"></a>    <span class="st">"Team "</span>, species)),</span>
+<span id="cb73-10"><a href="#cb73-10"></a>    <span class="at">stat =</span> <span class="st">"smooth"</span>,</span>
+<span id="cb73-11"><a href="#cb73-11"></a>    <span class="at">family =</span> <span class="st">"DM Sans"</span>,</span>
+<span id="cb73-12"><a href="#cb73-12"></a>    <span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
+<span id="cb73-13"><a href="#cb73-13"></a>    <span class="at">vjust =</span> <span class="fl">0.2</span>,</span>
+<span id="cb73-14"><a href="#cb73-14"></a>    <span class="at">hjust =</span> <span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-86-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-101"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-86-1.png" width="672"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-87-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-103"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-87-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -2952,17 +2988,17 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <p>I <span class="emoji" data-emoji="heart">❤️</span> <span class="emoji" data-emoji="package">📦</span> <code>{geomtextpath}</code></p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb73" data-code-line-numbers="2,6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1"></a>penguins_themed_plot <span class="sc">+</span></span>
-<span id="cb73-2"><a href="#cb73-2"></a>  geomtextpath<span class="sc">::</span><span class="fu">geom_labelpath</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(</span>
-<span id="cb73-3"><a href="#cb73-3"></a>    <span class="st">"Team "</span>, species)),</span>
-<span id="cb73-4"><a href="#cb73-4"></a>    <span class="at">stat =</span> <span class="st">"smooth"</span>,</span>
-<span id="cb73-5"><a href="#cb73-5"></a>    <span class="at">family =</span> <span class="st">"DM Sans"</span>,</span>
-<span id="cb73-6"><a href="#cb73-6"></a>    <span class="at">alpha =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74" data-code-line-numbers="2,6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a>penguins_themed_plot <span class="sc">+</span></span>
+<span id="cb74-2"><a href="#cb74-2"></a>  geomtextpath<span class="sc">::</span><span class="fu">geom_labelpath</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(</span>
+<span id="cb74-3"><a href="#cb74-3"></a>    <span class="st">"Team "</span>, species)),</span>
+<span id="cb74-4"><a href="#cb74-4"></a>    <span class="at">stat =</span> <span class="st">"smooth"</span>,</span>
+<span id="cb74-5"><a href="#cb74-5"></a>    <span class="at">family =</span> <span class="st">"DM Sans"</span>,</span>
+<span id="cb74-6"><a href="#cb74-6"></a>    <span class="at">alpha =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-87-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-103"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-87-1.png" width="672"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-88-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-105"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-88-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -2973,42 +3009,42 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <h2><span style="color:#28A569">#4</span> - Highlight important patterns | points</h2>
 <p>What about individual penguins?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74" data-code-line-numbers="2-5|6-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a>penguin_highlights <span class="ot">&lt;-</span> palmerpenguins<span class="sc">::</span>penguins_raw <span class="sc">%&gt;%</span></span>
-<span id="cb74-2"><a href="#cb74-2"></a>  <span class="co"># Housekeeping</span></span>
-<span id="cb74-3"><a href="#cb74-3"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb74-4"><a href="#cb74-4"></a>  <span class="fu">rename</span>(<span class="at">bill_depth_mm =</span> culmen_depth_mm,</span>
-<span id="cb74-5"><a href="#cb74-5"></a>         <span class="at">bill_length_mm =</span> culmen_length_mm) <span class="sc">%&gt;%</span></span>
-<span id="cb74-6"><a href="#cb74-6"></a>  <span class="co"># Find star baker, runner up and lowest score</span></span>
-<span id="cb74-7"><a href="#cb74-7"></a>  <span class="fu">filter</span>(bill_length_mm <span class="sc">%in%</span> <span class="fu">c</span>(<span class="fu">max</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb74-8"><a href="#cb74-8"></a>                               <span class="fu">sort</span>(bill_length_mm, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">2</span>],</span>
-<span id="cb74-9"><a href="#cb74-9"></a>                               <span class="fu">min</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75" data-code-line-numbers="2-5|6-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1"></a>penguin_highlights <span class="ot">&lt;-</span> palmerpenguins<span class="sc">::</span>penguins_raw <span class="sc">%&gt;%</span></span>
+<span id="cb75-2"><a href="#cb75-2"></a>  <span class="co"># Housekeeping</span></span>
+<span id="cb75-3"><a href="#cb75-3"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb75-4"><a href="#cb75-4"></a>  <span class="fu">rename</span>(<span class="at">bill_depth_mm =</span> culmen_depth_mm,</span>
+<span id="cb75-5"><a href="#cb75-5"></a>         <span class="at">bill_length_mm =</span> culmen_length_mm) <span class="sc">%&gt;%</span></span>
+<span id="cb75-6"><a href="#cb75-6"></a>  <span class="co"># Find star baker, runner up and lowest score</span></span>
+<span id="cb75-7"><a href="#cb75-7"></a>  <span class="fu">filter</span>(bill_length_mm <span class="sc">%in%</span> <span class="fu">c</span>(<span class="fu">max</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb75-8"><a href="#cb75-8"></a>                               <span class="fu">sort</span>(bill_length_mm, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">2</span>],</span>
+<span id="cb75-9"><a href="#cb75-9"></a>                               <span class="fu">min</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="highlight-important-patterns-points-1" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"><span style="color:#28A569">#4</span> - Highlight important patterns | points</h2>
 <p>First, a bit of text manipulation!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75" data-code-line-numbers="8-10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1"></a>penguin_highlights <span class="ot">&lt;-</span> palmerpenguins<span class="sc">::</span>penguins_raw <span class="sc">%&gt;%</span></span>
-<span id="cb75-2"><a href="#cb75-2"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb75-3"><a href="#cb75-3"></a>  <span class="fu">rename</span>(<span class="at">bill_depth_mm =</span> culmen_depth_mm,</span>
-<span id="cb75-4"><a href="#cb75-4"></a>         <span class="at">bill_length_mm =</span> culmen_length_mm) <span class="sc">%&gt;%</span></span>
-<span id="cb75-5"><a href="#cb75-5"></a>  <span class="fu">filter</span>(bill_length_mm <span class="sc">%in%</span> <span class="fu">c</span>(<span class="fu">max</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb75-6"><a href="#cb75-6"></a>                               <span class="fu">sort</span>(bill_length_mm, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">2</span>],</span>
-<span id="cb75-7"><a href="#cb75-7"></a>                               <span class="fu">min</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb75-8"><a href="#cb75-8"></a>  <span class="co"># More housekeeping</span></span>
-<span id="cb75-9"><a href="#cb75-9"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">gsub</span>(<span class="st">"(.) (.*)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>, species))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76" data-code-line-numbers="8-10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1"></a>penguin_highlights <span class="ot">&lt;-</span> palmerpenguins<span class="sc">::</span>penguins_raw <span class="sc">%&gt;%</span></span>
+<span id="cb76-2"><a href="#cb76-2"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb76-3"><a href="#cb76-3"></a>  <span class="fu">rename</span>(<span class="at">bill_depth_mm =</span> culmen_depth_mm,</span>
+<span id="cb76-4"><a href="#cb76-4"></a>         <span class="at">bill_length_mm =</span> culmen_length_mm) <span class="sc">%&gt;%</span></span>
+<span id="cb76-5"><a href="#cb76-5"></a>  <span class="fu">filter</span>(bill_length_mm <span class="sc">%in%</span> <span class="fu">c</span>(<span class="fu">max</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb76-6"><a href="#cb76-6"></a>                               <span class="fu">sort</span>(bill_length_mm, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">2</span>],</span>
+<span id="cb76-7"><a href="#cb76-7"></a>                               <span class="fu">min</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb76-8"><a href="#cb76-8"></a>  <span class="co"># More housekeeping</span></span>
+<span id="cb76-9"><a href="#cb76-9"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">gsub</span>(<span class="st">"(.) (.*)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>, species))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1"></a>raw_species <span class="ot">&lt;-</span> <span class="fu">unique</span>(palmerpenguins<span class="sc">::</span>penguins_raw<span class="sc">$</span>Species)</span>
-<span id="cb76-2"><a href="#cb76-2"></a>raw_species</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1"></a>raw_species <span class="ot">&lt;-</span> <span class="fu">unique</span>(palmerpenguins<span class="sc">::</span>penguins_raw<span class="sc">$</span>Species)</span>
+<span id="cb77-2"><a href="#cb77-2"></a>raw_species</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Adelie Penguin (Pygoscelis adeliae)"      
 [2] "Gentoo penguin (Pygoscelis papua)"        
 [3] "Chinstrap penguin (Pygoscelis antarctica)"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1"></a><span class="fu">gsub</span>(<span class="st">"(.) (.*)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>, raw_species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1"></a><span class="fu">gsub</span>(<span class="st">"(.) (.*)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>, raw_species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Adelie"    "Gentoo"    "Chinstrap"</code></pre>
 </div>
@@ -3019,37 +3055,37 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <h2 data-id="quarto-animate-title"><span style="color:#28A569">#4</span> - Highlight important patterns | points</h2>
 <p>First, a bit of text manipulation!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80" data-code-line-numbers="10-21"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb80-1" class="hljs-ln-code"><a href="#cb80-1"></a>penguin_highlights <span class="ot">&lt;-</span> palmerpenguins<span class="sc">::</span>penguins_raw <span class="sc">%&gt;%</span></span>
-<span id="cb80-2" class="hljs-ln-code"><a href="#cb80-2"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb80-3" class="hljs-ln-code"><a href="#cb80-3"></a>  <span class="fu">rename</span>(<span class="at">bill_depth_mm =</span> culmen_depth_mm,</span>
-<span id="cb80-4" class="hljs-ln-code"><a href="#cb80-4"></a>         <span class="at">bill_length_mm =</span> culmen_length_mm) <span class="sc">%&gt;%</span></span>
-<span id="cb80-5" class="hljs-ln-code"><a href="#cb80-5"></a>  <span class="fu">filter</span>(bill_length_mm <span class="sc">%in%</span> <span class="fu">c</span>(<span class="fu">max</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb80-6" class="hljs-ln-code"><a href="#cb80-6"></a>                               <span class="fu">sort</span>(bill_length_mm, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">2</span>],</span>
-<span id="cb80-7" class="hljs-ln-code"><a href="#cb80-7"></a>                               <span class="fu">min</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb80-8" class="hljs-ln-code"><a href="#cb80-8"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">gsub</span>(<span class="st">"(.) (.*)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>, species),</span>
-<span id="cb80-9" class="hljs-ln-code"><a href="#cb80-9"></a>         <span class="co"># Add commentary!</span></span>
-<span id="cb80-10" class="hljs-ln-code"><a href="#cb80-10"></a>         <span class="at">commentary =</span> <span class="fu">case_when</span>(</span>
-<span id="cb80-11" class="hljs-ln-code"><a href="#cb80-11"></a>           bill_length_mm <span class="sc">==</span> <span class="fu">max</span>(bill_length_mm) <span class="sc">~</span></span>
-<span id="cb80-12" class="hljs-ln-code"><a href="#cb80-12"></a>             <span class="fu">paste0</span>(<span class="st">"Our star baker is **"</span>, individual_id,</span>
-<span id="cb80-13" class="hljs-ln-code"><a href="#cb80-13"></a>                    <span class="st">"**, a "</span>, species, <span class="st">" from "</span>, island,</span>
-<span id="cb80-14" class="hljs-ln-code"><a href="#cb80-14"></a>                    <span class="st">". Congratulations, "</span>, individual_id, <span class="st">"!"</span>),</span>
-<span id="cb80-15" class="hljs-ln-code"><a href="#cb80-15"></a>           bill_length_mm <span class="sc">==</span> <span class="fu">sort</span>(bill_length_mm, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">2</span>] <span class="sc">~</span></span>
-<span id="cb80-16" class="hljs-ln-code"><a href="#cb80-16"></a>             <span class="fu">paste0</span>(<span class="st">"Our runner up is a "</span>, species,</span>
-<span id="cb80-17" class="hljs-ln-code"><a href="#cb80-17"></a>                    <span class="st">" from "</span>, island, <span class="st">": **"</span>, individual_id,</span>
-<span id="cb80-18" class="hljs-ln-code"><a href="#cb80-18"></a>                    <span class="st">"**, proving that ripe and over-ripe bananas are both good options!"</span>),</span>
-<span id="cb80-19" class="hljs-ln-code"><a href="#cb80-19"></a>           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="fu">paste0</span>(<span class="st">"**"</span>, individual_id,</span>
-<span id="cb80-20" class="hljs-ln-code"><a href="#cb80-20"></a>                         <span class="st">"**, did not have a good baking day. The combination of short cooking time and green bananas probably didn't help!"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81" data-code-line-numbers="10-21"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb81-1" class="hljs-ln-code"><a href="#cb81-1"></a>penguin_highlights <span class="ot">&lt;-</span> palmerpenguins<span class="sc">::</span>penguins_raw <span class="sc">%&gt;%</span></span>
+<span id="cb81-2" class="hljs-ln-code"><a href="#cb81-2"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb81-3" class="hljs-ln-code"><a href="#cb81-3"></a>  <span class="fu">rename</span>(<span class="at">bill_depth_mm =</span> culmen_depth_mm,</span>
+<span id="cb81-4" class="hljs-ln-code"><a href="#cb81-4"></a>         <span class="at">bill_length_mm =</span> culmen_length_mm) <span class="sc">%&gt;%</span></span>
+<span id="cb81-5" class="hljs-ln-code"><a href="#cb81-5"></a>  <span class="fu">filter</span>(bill_length_mm <span class="sc">%in%</span> <span class="fu">c</span>(<span class="fu">max</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb81-6" class="hljs-ln-code"><a href="#cb81-6"></a>                               <span class="fu">sort</span>(bill_length_mm, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">2</span>],</span>
+<span id="cb81-7" class="hljs-ln-code"><a href="#cb81-7"></a>                               <span class="fu">min</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb81-8" class="hljs-ln-code"><a href="#cb81-8"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">gsub</span>(<span class="st">"(.) (.*)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>, species),</span>
+<span id="cb81-9" class="hljs-ln-code"><a href="#cb81-9"></a>         <span class="co"># Add commentary!</span></span>
+<span id="cb81-10" class="hljs-ln-code"><a href="#cb81-10"></a>         <span class="at">commentary =</span> <span class="fu">case_when</span>(</span>
+<span id="cb81-11" class="hljs-ln-code"><a href="#cb81-11"></a>           bill_length_mm <span class="sc">==</span> <span class="fu">max</span>(bill_length_mm) <span class="sc">~</span></span>
+<span id="cb81-12" class="hljs-ln-code"><a href="#cb81-12"></a>             <span class="fu">paste0</span>(<span class="st">"Our star baker is **"</span>, individual_id,</span>
+<span id="cb81-13" class="hljs-ln-code"><a href="#cb81-13"></a>                    <span class="st">"**, a "</span>, species, <span class="st">" from "</span>, island,</span>
+<span id="cb81-14" class="hljs-ln-code"><a href="#cb81-14"></a>                    <span class="st">". Congratulations, "</span>, individual_id, <span class="st">"!"</span>),</span>
+<span id="cb81-15" class="hljs-ln-code"><a href="#cb81-15"></a>           bill_length_mm <span class="sc">==</span> <span class="fu">sort</span>(bill_length_mm, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">2</span>] <span class="sc">~</span></span>
+<span id="cb81-16" class="hljs-ln-code"><a href="#cb81-16"></a>             <span class="fu">paste0</span>(<span class="st">"Our runner up is a "</span>, species,</span>
+<span id="cb81-17" class="hljs-ln-code"><a href="#cb81-17"></a>                    <span class="st">" from "</span>, island, <span class="st">": **"</span>, individual_id,</span>
+<span id="cb81-18" class="hljs-ln-code"><a href="#cb81-18"></a>                    <span class="st">"**, proving that ripe and over-ripe bananas are both good options!"</span>),</span>
+<span id="cb81-19" class="hljs-ln-code"><a href="#cb81-19"></a>           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="fu">paste0</span>(<span class="st">"**"</span>, individual_id,</span>
+<span id="cb81-20" class="hljs-ln-code"><a href="#cb81-20"></a>                         <span class="st">"**, did not have a good baking day. The combination of short cooking time and green bananas probably didn't help!"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="highlight-important-patterns-points-3" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"><span style="color:#28A569">#4</span> - Highlight important patterns | points</h2>
 <p>First, a bit of text manipulation!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb81-1" class="hljs-ln-code"><a href="#cb81-1"></a>penguin_highlights <span class="sc">%&gt;%</span> </span>
-<span id="cb81-2" class="hljs-ln-code"><a href="#cb81-2"></a>  <span class="fu">select</span>(individual_id,</span>
-<span id="cb81-3" class="hljs-ln-code"><a href="#cb81-3"></a>         species,</span>
-<span id="cb81-4" class="hljs-ln-code"><a href="#cb81-4"></a>         island,</span>
-<span id="cb81-5" class="hljs-ln-code"><a href="#cb81-5"></a>         commentary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb82-1" class="hljs-ln-code"><a href="#cb82-1"></a>penguin_highlights <span class="sc">%&gt;%</span> </span>
+<span id="cb82-2" class="hljs-ln-code"><a href="#cb82-2"></a>  <span class="fu">select</span>(individual_id,</span>
+<span id="cb82-3" class="hljs-ln-code"><a href="#cb82-3"></a>         species,</span>
+<span id="cb82-4" class="hljs-ln-code"><a href="#cb82-4"></a>         island,</span>
+<span id="cb82-5" class="hljs-ln-code"><a href="#cb82-5"></a>         commentary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 x 4
   individual_id species   island commentary                                     
@@ -3064,36 +3100,36 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <h2 data-id="quarto-animate-title"><span style="color:#28A569">#4</span> - Highlight important patterns | points</h2>
 <p>Next, let’s work out where we want our labels…</p>
 
-<img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-93-1.png" width="672" class="r-stretch quarto-figure-center"></section>
+<img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-94-1.png" width="672" class="r-stretch quarto-figure-center"></section>
 <section id="highlight-important-patterns-points-5" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"><span style="color:#28A569">#4</span> - Highlight important patterns | points</h2>
 <p>… and add box coordinates and text alignment to our data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb83" data-code-line-numbers="8-9|17-21|22-25"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb83-1" class="hljs-ln-code"><a href="#cb83-1"></a>penguin_highlights <span class="ot">&lt;-</span> palmerpenguins<span class="sc">::</span>penguins_raw <span class="sc">%&gt;%</span></span>
-<span id="cb83-2" class="hljs-ln-code"><a href="#cb83-2"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb83-3" class="hljs-ln-code"><a href="#cb83-3"></a>  <span class="fu">rename</span>(<span class="at">bill_depth_mm =</span> culmen_depth_mm,</span>
-<span id="cb83-4" class="hljs-ln-code"><a href="#cb83-4"></a>         <span class="at">bill_length_mm =</span> culmen_length_mm) <span class="sc">%&gt;%</span></span>
-<span id="cb83-5" class="hljs-ln-code"><a href="#cb83-5"></a>  <span class="fu">filter</span>(bill_length_mm <span class="sc">%in%</span> <span class="fu">c</span>(<span class="fu">max</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb83-6" class="hljs-ln-code"><a href="#cb83-6"></a>                               <span class="fu">sort</span>(bill_length_mm, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">2</span>],</span>
-<span id="cb83-7" class="hljs-ln-code"><a href="#cb83-7"></a>                               <span class="fu">min</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb83-8" class="hljs-ln-code"><a href="#cb83-8"></a>  <span class="co"># more housekeeping!</span></span>
-<span id="cb83-9" class="hljs-ln-code"><a href="#cb83-9"></a>  <span class="fu">arrange</span>(bill_length_mm) <span class="sc">%&gt;%</span></span>
-<span id="cb83-10" class="hljs-ln-code"><a href="#cb83-10"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">gsub</span>(<span class="st">"(.) (.*)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>, species),</span>
-<span id="cb83-11" class="hljs-ln-code"><a href="#cb83-11"></a>         <span class="at">commentary =</span> <span class="fu">case_when</span>(</span>
-<span id="cb83-12" class="hljs-ln-code"><a href="#cb83-12"></a>           bill_length_mm <span class="sc">==</span> <span class="fu">max</span>(bill_length_mm) <span class="sc">~</span></span>
-<span id="cb83-13" class="hljs-ln-code"><a href="#cb83-13"></a>             <span class="fu">paste0</span>(<span class="st">"Our star baker is **"</span>, individual_id, <span class="st">"**, a "</span>, species, <span class="st">" from "</span>, island, <span class="st">". Congratulations, "</span>, individual_id, <span class="st">"!"</span>),</span>
-<span id="cb83-14" class="hljs-ln-code"><a href="#cb83-14"></a>           bill_length_mm <span class="sc">==</span> <span class="fu">sort</span>(bill_length_mm, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">2</span>] <span class="sc">~</span></span>
-<span id="cb83-15" class="hljs-ln-code"><a href="#cb83-15"></a>             <span class="fu">paste0</span>(<span class="st">"Our runner up is a "</span>, species, <span class="st">" from "</span>, island, <span class="st">": **"</span>, individual_id, <span class="st">"**, proving that ripe and over-ripe bananas are both good options!"</span>),</span>
-<span id="cb83-16" class="hljs-ln-code"><a href="#cb83-16"></a>           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="fu">paste0</span>(<span class="st">"**"</span>, individual_id, <span class="st">"**, did not have a good baking day. The combination of short cooking time and green bananas probably didn't help!"</span>)),</span>
-<span id="cb83-17" class="hljs-ln-code"><a href="#cb83-17"></a>         <span class="co"># Add label and arrow coordinates</span></span>
-<span id="cb83-18" class="hljs-ln-code"><a href="#cb83-18"></a>         <span class="at">label_x =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="fl">18.15</span>, <span class="fl">16.45</span>),</span>
-<span id="cb83-19" class="hljs-ln-code"><a href="#cb83-19"></a>         <span class="at">label_y =</span> <span class="fu">c</span>(<span class="dv">34</span>, <span class="dv">57</span>, <span class="dv">59</span>),</span>
-<span id="cb83-20" class="hljs-ln-code"><a href="#cb83-20"></a>         <span class="at">left_to_right =</span> <span class="fu">case_when</span>(label_x <span class="sc">&lt;</span> bill_depth_mm <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb83-21" class="hljs-ln-code"><a href="#cb83-21"></a>                             <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
-<span id="cb83-22" class="hljs-ln-code"><a href="#cb83-22"></a>         <span class="at">arrow_x_end =</span> <span class="fu">case_when</span>(label_x <span class="sc">&lt;</span> bill_depth_mm <span class="sc">~</span> bill_depth_mm <span class="sc">-</span> <span class="fl">0.1</span>,</span>
-<span id="cb83-23" class="hljs-ln-code"><a href="#cb83-23"></a>                                 <span class="cn">TRUE</span> <span class="sc">~</span> bill_depth_mm <span class="sc">+</span> <span class="fl">0.1</span>),</span>
-<span id="cb83-24" class="hljs-ln-code"><a href="#cb83-24"></a>         <span class="at">arrow_y_end =</span> <span class="fu">case_when</span>(label_y <span class="sc">&lt;</span> bill_length_mm <span class="sc">~</span> bill_length_mm <span class="sc">-</span> <span class="fl">0.1</span>,</span>
-<span id="cb83-25" class="hljs-ln-code"><a href="#cb83-25"></a>                                 <span class="cn">TRUE</span> <span class="sc">~</span> bill_length_mm <span class="sc">+</span> <span class="fl">0.1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84" data-code-line-numbers="8-9|17-21|22-25"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb84-1" class="hljs-ln-code"><a href="#cb84-1"></a>penguin_highlights <span class="ot">&lt;-</span> palmerpenguins<span class="sc">::</span>penguins_raw <span class="sc">%&gt;%</span></span>
+<span id="cb84-2" class="hljs-ln-code"><a href="#cb84-2"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb84-3" class="hljs-ln-code"><a href="#cb84-3"></a>  <span class="fu">rename</span>(<span class="at">bill_depth_mm =</span> culmen_depth_mm,</span>
+<span id="cb84-4" class="hljs-ln-code"><a href="#cb84-4"></a>         <span class="at">bill_length_mm =</span> culmen_length_mm) <span class="sc">%&gt;%</span></span>
+<span id="cb84-5" class="hljs-ln-code"><a href="#cb84-5"></a>  <span class="fu">filter</span>(bill_length_mm <span class="sc">%in%</span> <span class="fu">c</span>(<span class="fu">max</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb84-6" class="hljs-ln-code"><a href="#cb84-6"></a>                               <span class="fu">sort</span>(bill_length_mm, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">2</span>],</span>
+<span id="cb84-7" class="hljs-ln-code"><a href="#cb84-7"></a>                               <span class="fu">min</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb84-8" class="hljs-ln-code"><a href="#cb84-8"></a>  <span class="co"># more housekeeping!</span></span>
+<span id="cb84-9" class="hljs-ln-code"><a href="#cb84-9"></a>  <span class="fu">arrange</span>(bill_length_mm) <span class="sc">%&gt;%</span></span>
+<span id="cb84-10" class="hljs-ln-code"><a href="#cb84-10"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">gsub</span>(<span class="st">"(.) (.*)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>, species),</span>
+<span id="cb84-11" class="hljs-ln-code"><a href="#cb84-11"></a>         <span class="at">commentary =</span> <span class="fu">case_when</span>(</span>
+<span id="cb84-12" class="hljs-ln-code"><a href="#cb84-12"></a>           bill_length_mm <span class="sc">==</span> <span class="fu">max</span>(bill_length_mm) <span class="sc">~</span></span>
+<span id="cb84-13" class="hljs-ln-code"><a href="#cb84-13"></a>             <span class="fu">paste0</span>(<span class="st">"Our star baker is **"</span>, individual_id, <span class="st">"**, a "</span>, species, <span class="st">" from "</span>, island, <span class="st">". Congratulations, "</span>, individual_id, <span class="st">"!"</span>),</span>
+<span id="cb84-14" class="hljs-ln-code"><a href="#cb84-14"></a>           bill_length_mm <span class="sc">==</span> <span class="fu">sort</span>(bill_length_mm, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">2</span>] <span class="sc">~</span></span>
+<span id="cb84-15" class="hljs-ln-code"><a href="#cb84-15"></a>             <span class="fu">paste0</span>(<span class="st">"Our runner up is a "</span>, species, <span class="st">" from "</span>, island, <span class="st">": **"</span>, individual_id, <span class="st">"**, proving that ripe and over-ripe bananas are both good options!"</span>),</span>
+<span id="cb84-16" class="hljs-ln-code"><a href="#cb84-16"></a>           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="fu">paste0</span>(<span class="st">"**"</span>, individual_id, <span class="st">"**, did not have a good baking day. The combination of short cooking time and green bananas probably didn't help!"</span>)),</span>
+<span id="cb84-17" class="hljs-ln-code"><a href="#cb84-17"></a>         <span class="co"># Add label and arrow coordinates</span></span>
+<span id="cb84-18" class="hljs-ln-code"><a href="#cb84-18"></a>         <span class="at">label_x =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="fl">18.15</span>, <span class="fl">16.45</span>),</span>
+<span id="cb84-19" class="hljs-ln-code"><a href="#cb84-19"></a>         <span class="at">label_y =</span> <span class="fu">c</span>(<span class="dv">34</span>, <span class="dv">57</span>, <span class="dv">59</span>),</span>
+<span id="cb84-20" class="hljs-ln-code"><a href="#cb84-20"></a>         <span class="at">left_to_right =</span> <span class="fu">case_when</span>(label_x <span class="sc">&lt;</span> bill_depth_mm <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb84-21" class="hljs-ln-code"><a href="#cb84-21"></a>                             <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
+<span id="cb84-22" class="hljs-ln-code"><a href="#cb84-22"></a>         <span class="at">arrow_x_end =</span> <span class="fu">case_when</span>(label_x <span class="sc">&lt;</span> bill_depth_mm <span class="sc">~</span> bill_depth_mm <span class="sc">-</span> <span class="fl">0.1</span>,</span>
+<span id="cb84-23" class="hljs-ln-code"><a href="#cb84-23"></a>                                 <span class="cn">TRUE</span> <span class="sc">~</span> bill_depth_mm <span class="sc">+</span> <span class="fl">0.1</span>),</span>
+<span id="cb84-24" class="hljs-ln-code"><a href="#cb84-24"></a>         <span class="at">arrow_y_end =</span> <span class="fu">case_when</span>(label_y <span class="sc">&lt;</span> bill_length_mm <span class="sc">~</span> bill_length_mm <span class="sc">-</span> <span class="fl">0.1</span>,</span>
+<span id="cb84-25" class="hljs-ln-code"><a href="#cb84-25"></a>                                 <span class="cn">TRUE</span> <span class="sc">~</span> bill_length_mm <span class="sc">+</span> <span class="fl">0.1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="footer">
 <p>Find out more: <a href="https://www.cararthompson.com/posts/2021-09-02-alignment-cheat-sheet/">cararthompson.com/posts/2021-09-02-alignment-cheat-sheet/</a></p>
@@ -3104,15 +3140,15 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <p>Let’s add the annotations…</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb84-1" class="hljs-ln-code"><a href="#cb84-1"></a>penguins_themed_plot <span class="sc">+</span></span>
-<span id="cb84-2" class="hljs-ln-code"><a href="#cb84-2"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_summaries,</span>
-<span id="cb84-3" class="hljs-ln-code"><a href="#cb84-3"></a>               <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"**Team "</span>, species, <span class="st">"**"</span>, <span class="st">"&lt;br&gt;&lt;span style = </span><span class="sc">\"</span><span class="st">color:"</span>, banana_colours<span class="sc">$</span>light_text, <span class="st">"</span><span class="sc">\"</span><span class="st">&gt;"</span>, commentary, <span class="st">"&lt;/span&gt;"</span>)),</span>
-<span id="cb84-4" class="hljs-ln-code"><a href="#cb84-4"></a>               <span class="at">family =</span> <span class="st">"DM Sans"</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">9</span>, <span class="st">"line"</span>), <span class="at">alpha =</span> <span class="fl">0.9</span>, <span class="at">box.colour =</span> <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb85-1" class="hljs-ln-code"><a href="#cb85-1"></a>penguins_themed_plot <span class="sc">+</span></span>
+<span id="cb85-2" class="hljs-ln-code"><a href="#cb85-2"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_summaries,</span>
+<span id="cb85-3" class="hljs-ln-code"><a href="#cb85-3"></a>               <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"**Team "</span>, species, <span class="st">"**"</span>, <span class="st">"&lt;br&gt;&lt;span style = </span><span class="sc">\"</span><span class="st">color:"</span>, banana_colours<span class="sc">$</span>light_text, <span class="st">"</span><span class="sc">\"</span><span class="st">&gt;"</span>, commentary, <span class="st">"&lt;/span&gt;"</span>)),</span>
+<span id="cb85-4" class="hljs-ln-code"><a href="#cb85-4"></a>               <span class="at">family =</span> <span class="st">"DM Sans"</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">9</span>, <span class="st">"line"</span>), <span class="at">alpha =</span> <span class="fl">0.9</span>, <span class="at">box.colour =</span> <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-95-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-105"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-95-1.png" width="672"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-96-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-107"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-96-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -3124,24 +3160,24 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <p>Let’s add the annotations…</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb85" data-code-line-numbers="5-13"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb85-1" class="hljs-ln-code"><a href="#cb85-1"></a>penguins_themed_plot <span class="sc">+</span></span>
-<span id="cb85-2" class="hljs-ln-code"><a href="#cb85-2"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_summaries,</span>
-<span id="cb85-3" class="hljs-ln-code"><a href="#cb85-3"></a>               <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"**Team "</span>, species, <span class="st">"**"</span>, <span class="st">"&lt;br&gt;&lt;span style = </span><span class="sc">\"</span><span class="st">color:"</span>, banana_colours<span class="sc">$</span>light_text, <span class="st">"</span><span class="sc">\"</span><span class="st">&gt;"</span>, commentary, <span class="st">"&lt;/span&gt;"</span>)),</span>
-<span id="cb85-4" class="hljs-ln-code"><a href="#cb85-4"></a>               <span class="at">family =</span> <span class="st">"DM Sans"</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">9</span>, <span class="st">"line"</span>), <span class="at">alpha =</span> <span class="fl">0.9</span>, <span class="at">box.colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb85-5" class="hljs-ln-code"><a href="#cb85-5"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_highlights,</span>
-<span id="cb85-6" class="hljs-ln-code"><a href="#cb85-6"></a>               <span class="fu">aes</span>(<span class="at">label =</span> commentary,</span>
-<span id="cb85-7" class="hljs-ln-code"><a href="#cb85-7"></a>                   <span class="at">x =</span> label_x,</span>
-<span id="cb85-8" class="hljs-ln-code"><a href="#cb85-8"></a>                   <span class="at">y =</span> label_y,</span>
-<span id="cb85-9" class="hljs-ln-code"><a href="#cb85-9"></a>                   <span class="at">hjust =</span> left_to_right),</span>
-<span id="cb85-10" class="hljs-ln-code"><a href="#cb85-10"></a>               <span class="at">family =</span> <span class="st">"DM Sans"</span>, </span>
-<span id="cb85-11" class="hljs-ln-code"><a href="#cb85-11"></a>               <span class="at">size =</span> <span class="dv">3</span>,</span>
-<span id="cb85-12" class="hljs-ln-code"><a href="#cb85-12"></a>               <span class="at">fill =</span> <span class="cn">NA</span>,</span>
-<span id="cb85-13" class="hljs-ln-code"><a href="#cb85-13"></a>               <span class="at">box.colour =</span> <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86" data-code-line-numbers="5-13"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb86-1" class="hljs-ln-code"><a href="#cb86-1"></a>penguins_themed_plot <span class="sc">+</span></span>
+<span id="cb86-2" class="hljs-ln-code"><a href="#cb86-2"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_summaries,</span>
+<span id="cb86-3" class="hljs-ln-code"><a href="#cb86-3"></a>               <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"**Team "</span>, species, <span class="st">"**"</span>, <span class="st">"&lt;br&gt;&lt;span style = </span><span class="sc">\"</span><span class="st">color:"</span>, banana_colours<span class="sc">$</span>light_text, <span class="st">"</span><span class="sc">\"</span><span class="st">&gt;"</span>, commentary, <span class="st">"&lt;/span&gt;"</span>)),</span>
+<span id="cb86-4" class="hljs-ln-code"><a href="#cb86-4"></a>               <span class="at">family =</span> <span class="st">"DM Sans"</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">9</span>, <span class="st">"line"</span>), <span class="at">alpha =</span> <span class="fl">0.9</span>, <span class="at">box.colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb86-5" class="hljs-ln-code"><a href="#cb86-5"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_highlights,</span>
+<span id="cb86-6" class="hljs-ln-code"><a href="#cb86-6"></a>               <span class="fu">aes</span>(<span class="at">label =</span> commentary,</span>
+<span id="cb86-7" class="hljs-ln-code"><a href="#cb86-7"></a>                   <span class="at">x =</span> label_x,</span>
+<span id="cb86-8" class="hljs-ln-code"><a href="#cb86-8"></a>                   <span class="at">y =</span> label_y,</span>
+<span id="cb86-9" class="hljs-ln-code"><a href="#cb86-9"></a>                   <span class="at">hjust =</span> left_to_right),</span>
+<span id="cb86-10" class="hljs-ln-code"><a href="#cb86-10"></a>               <span class="at">family =</span> <span class="st">"DM Sans"</span>, </span>
+<span id="cb86-11" class="hljs-ln-code"><a href="#cb86-11"></a>               <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb86-12" class="hljs-ln-code"><a href="#cb86-12"></a>               <span class="at">fill =</span> <span class="cn">NA</span>,</span>
+<span id="cb86-13" class="hljs-ln-code"><a href="#cb86-13"></a>               <span class="at">box.colour =</span> <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-96-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-106"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-96-1.png" width="672"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-97-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-108"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-97-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -3153,25 +3189,25 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <p>… using <strong>arrows</strong> and <strong>alignments</strong> to emphasise the story</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb86" data-code-line-numbers="8-14"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb86-1" class="hljs-ln-code"><a href="#cb86-1"></a>penguins_themed_plot <span class="sc">+</span></span>
-<span id="cb86-2" class="hljs-ln-code"><a href="#cb86-2"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_summaries,</span>
-<span id="cb86-3" class="hljs-ln-code"><a href="#cb86-3"></a>               <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"**Team "</span>, species, <span class="st">"**"</span>, <span class="st">"&lt;br&gt;&lt;span style = </span><span class="sc">\"</span><span class="st">color:"</span>, banana_colours<span class="sc">$</span>light_text, <span class="st">"</span><span class="sc">\"</span><span class="st">&gt;"</span>, commentary, <span class="st">"&lt;/span&gt;"</span>)),</span>
-<span id="cb86-4" class="hljs-ln-code"><a href="#cb86-4"></a>               <span class="at">family =</span> <span class="st">"DM Sans"</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">9</span>, <span class="st">"line"</span>), <span class="at">alpha =</span> <span class="fl">0.9</span>, <span class="at">box.colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb86-5" class="hljs-ln-code"><a href="#cb86-5"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_highlights,</span>
-<span id="cb86-6" class="hljs-ln-code"><a href="#cb86-6"></a>               <span class="fu">aes</span>(<span class="at">label =</span> commentary, <span class="at">x =</span> label_x, <span class="at">y =</span> label_y, <span class="at">hjust =</span> left_to_right),</span>
-<span id="cb86-7" class="hljs-ln-code"><a href="#cb86-7"></a>               <span class="at">family =</span> <span class="st">"DM Sans"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">box.colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb86-8" class="hljs-ln-code"><a href="#cb86-8"></a>  <span class="fu">geom_curve</span>(<span class="at">data =</span> penguin_highlights,</span>
-<span id="cb86-9" class="hljs-ln-code"><a href="#cb86-9"></a>             <span class="fu">aes</span>(<span class="at">x =</span> label_x, <span class="at">xend =</span> arrow_x_end,</span>
-<span id="cb86-10" class="hljs-ln-code"><a href="#cb86-10"></a>                 <span class="at">y =</span> label_y, <span class="at">yend =</span> arrow_y_end,</span>
-<span id="cb86-11" class="hljs-ln-code"><a href="#cb86-11"></a>                 <span class="at">hjust =</span> left_to_right),</span>
-<span id="cb86-12" class="hljs-ln-code"><a href="#cb86-12"></a>             <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">"cm"</span>)),</span>
-<span id="cb86-13" class="hljs-ln-code"><a href="#cb86-13"></a>             <span class="at">curvature =</span> <span class="fu">list</span>(<span class="fl">0.15</span>),</span>
-<span id="cb86-14" class="hljs-ln-code"><a href="#cb86-14"></a>             <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87" data-code-line-numbers="8-14"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb87-1" class="hljs-ln-code"><a href="#cb87-1"></a>penguins_themed_plot <span class="sc">+</span></span>
+<span id="cb87-2" class="hljs-ln-code"><a href="#cb87-2"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_summaries,</span>
+<span id="cb87-3" class="hljs-ln-code"><a href="#cb87-3"></a>               <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"**Team "</span>, species, <span class="st">"**"</span>, <span class="st">"&lt;br&gt;&lt;span style = </span><span class="sc">\"</span><span class="st">color:"</span>, banana_colours<span class="sc">$</span>light_text, <span class="st">"</span><span class="sc">\"</span><span class="st">&gt;"</span>, commentary, <span class="st">"&lt;/span&gt;"</span>)),</span>
+<span id="cb87-4" class="hljs-ln-code"><a href="#cb87-4"></a>               <span class="at">family =</span> <span class="st">"DM Sans"</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">9</span>, <span class="st">"line"</span>), <span class="at">alpha =</span> <span class="fl">0.9</span>, <span class="at">box.colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb87-5" class="hljs-ln-code"><a href="#cb87-5"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_highlights,</span>
+<span id="cb87-6" class="hljs-ln-code"><a href="#cb87-6"></a>               <span class="fu">aes</span>(<span class="at">label =</span> commentary, <span class="at">x =</span> label_x, <span class="at">y =</span> label_y, <span class="at">hjust =</span> left_to_right),</span>
+<span id="cb87-7" class="hljs-ln-code"><a href="#cb87-7"></a>               <span class="at">family =</span> <span class="st">"DM Sans"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">box.colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb87-8" class="hljs-ln-code"><a href="#cb87-8"></a>  <span class="fu">geom_curve</span>(<span class="at">data =</span> penguin_highlights,</span>
+<span id="cb87-9" class="hljs-ln-code"><a href="#cb87-9"></a>             <span class="fu">aes</span>(<span class="at">x =</span> label_x, <span class="at">xend =</span> arrow_x_end,</span>
+<span id="cb87-10" class="hljs-ln-code"><a href="#cb87-10"></a>                 <span class="at">y =</span> label_y, <span class="at">yend =</span> arrow_y_end,</span>
+<span id="cb87-11" class="hljs-ln-code"><a href="#cb87-11"></a>                 <span class="at">hjust =</span> left_to_right),</span>
+<span id="cb87-12" class="hljs-ln-code"><a href="#cb87-12"></a>             <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">"cm"</span>)),</span>
+<span id="cb87-13" class="hljs-ln-code"><a href="#cb87-13"></a>             <span class="at">curvature =</span> <span class="fu">list</span>(<span class="fl">0.15</span>),</span>
+<span id="cb87-14" class="hljs-ln-code"><a href="#cb87-14"></a>             <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-97-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-107"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-97-1.png" width="672"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-98-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-109"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-98-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -3183,25 +3219,25 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <p>… using <strong>arrows</strong> and <strong>alignments</strong> to emphasise the story</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb87" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb87-1" class="hljs-ln-code"><a href="#cb87-1"></a>penguins_themed_plot <span class="sc">+</span></span>
-<span id="cb87-2" class="hljs-ln-code"><a href="#cb87-2"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_summaries,</span>
-<span id="cb87-3" class="hljs-ln-code"><a href="#cb87-3"></a>               <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"**Team "</span>, species, <span class="st">"**"</span>, <span class="st">"&lt;br&gt;&lt;span style = </span><span class="sc">\"</span><span class="st">color:"</span>, banana_colours<span class="sc">$</span>light_text, <span class="st">"</span><span class="sc">\"</span><span class="st">&gt;"</span>, commentary, <span class="st">"&lt;/span&gt;"</span>)),</span>
-<span id="cb87-4" class="hljs-ln-code"><a href="#cb87-4"></a>               <span class="at">family =</span> <span class="st">"DM Sans"</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">9</span>, <span class="st">"line"</span>), <span class="at">alpha =</span> <span class="fl">0.9</span>, <span class="at">box.colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb87-5" class="hljs-ln-code"><a href="#cb87-5"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_highlights,</span>
-<span id="cb87-6" class="hljs-ln-code"><a href="#cb87-6"></a>               <span class="fu">aes</span>(<span class="at">label =</span> commentary, <span class="at">x =</span> label_x, <span class="at">y =</span> label_y, <span class="at">hjust =</span> left_to_right,</span>
-<span id="cb87-7" class="hljs-ln-code"><a href="#cb87-7"></a>                   <span class="at">halign =</span> left_to_right),</span>
-<span id="cb87-8" class="hljs-ln-code"><a href="#cb87-8"></a>               <span class="at">family =</span> <span class="st">"DM Sans"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">box.colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb87-9" class="hljs-ln-code"><a href="#cb87-9"></a>  <span class="fu">geom_curve</span>(<span class="at">data =</span> penguin_highlights,</span>
-<span id="cb87-10" class="hljs-ln-code"><a href="#cb87-10"></a>             <span class="fu">aes</span>(<span class="at">x =</span> label_x, <span class="at">xend =</span> arrow_x_end,</span>
-<span id="cb87-11" class="hljs-ln-code"><a href="#cb87-11"></a>                 <span class="at">y =</span> label_y, <span class="at">yend =</span> arrow_y_end),</span>
-<span id="cb87-12" class="hljs-ln-code"><a href="#cb87-12"></a>             <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">"cm"</span>)),</span>
-<span id="cb87-13" class="hljs-ln-code"><a href="#cb87-13"></a>             <span class="at">curvature =</span> <span class="fu">list</span>(<span class="fl">0.15</span>),</span>
-<span id="cb87-14" class="hljs-ln-code"><a href="#cb87-14"></a>             <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb88" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb88-1" class="hljs-ln-code"><a href="#cb88-1"></a>penguins_themed_plot <span class="sc">+</span></span>
+<span id="cb88-2" class="hljs-ln-code"><a href="#cb88-2"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_summaries,</span>
+<span id="cb88-3" class="hljs-ln-code"><a href="#cb88-3"></a>               <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"**Team "</span>, species, <span class="st">"**"</span>, <span class="st">"&lt;br&gt;&lt;span style = </span><span class="sc">\"</span><span class="st">color:"</span>, banana_colours<span class="sc">$</span>light_text, <span class="st">"</span><span class="sc">\"</span><span class="st">&gt;"</span>, commentary, <span class="st">"&lt;/span&gt;"</span>)),</span>
+<span id="cb88-4" class="hljs-ln-code"><a href="#cb88-4"></a>               <span class="at">family =</span> <span class="st">"DM Sans"</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">9</span>, <span class="st">"line"</span>), <span class="at">alpha =</span> <span class="fl">0.9</span>, <span class="at">box.colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb88-5" class="hljs-ln-code"><a href="#cb88-5"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(<span class="at">data =</span> penguin_highlights,</span>
+<span id="cb88-6" class="hljs-ln-code"><a href="#cb88-6"></a>               <span class="fu">aes</span>(<span class="at">label =</span> commentary, <span class="at">x =</span> label_x, <span class="at">y =</span> label_y, <span class="at">hjust =</span> left_to_right,</span>
+<span id="cb88-7" class="hljs-ln-code"><a href="#cb88-7"></a>                   <span class="at">halign =</span> left_to_right),</span>
+<span id="cb88-8" class="hljs-ln-code"><a href="#cb88-8"></a>               <span class="at">family =</span> <span class="st">"DM Sans"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">box.colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb88-9" class="hljs-ln-code"><a href="#cb88-9"></a>  <span class="fu">geom_curve</span>(<span class="at">data =</span> penguin_highlights,</span>
+<span id="cb88-10" class="hljs-ln-code"><a href="#cb88-10"></a>             <span class="fu">aes</span>(<span class="at">x =</span> label_x, <span class="at">xend =</span> arrow_x_end,</span>
+<span id="cb88-11" class="hljs-ln-code"><a href="#cb88-11"></a>                 <span class="at">y =</span> label_y, <span class="at">yend =</span> arrow_y_end),</span>
+<span id="cb88-12" class="hljs-ln-code"><a href="#cb88-12"></a>             <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">"cm"</span>)),</span>
+<span id="cb88-13" class="hljs-ln-code"><a href="#cb88-13"></a>             <span class="at">curvature =</span> <span class="fu">list</span>(<span class="fl">0.15</span>),</span>
+<span id="cb88-14" class="hljs-ln-code"><a href="#cb88-14"></a>             <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-98-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-108"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-98-1.png" width="672"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-99-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-110"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-99-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -3213,7 +3249,7 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-99-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-109"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-99-1.png" width="960"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-100-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-111"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-100-1.png" width="960"></a></p>
 </figure>
 </div>
 </div>
@@ -3223,17 +3259,20 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-100-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-110"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-100-1.png" width="960"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-101-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-112"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-101-1.png" width="960"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-</section>
-<section id="highlight-important-data-points" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title"><span style="color:#28A569">#4</span> - Highlight important data points</h2>
-</section>
+</section></section>
+<section>
+<section id="wait-but-why-again" class="title-slide slide level1 center" data-background="#2C3D4F">
+<h1>Wait, but why again?</h1>
+<p><code>new_data %&gt;% penguin_plot()</code></p>
+
+<img data-src="images/penguin-plot.gif" class="r-stretch quarto-figure-center"></section>
 <section id="level-up-your-plots-2" class="slide level2">
 <h2>Level up your plots</h2>
 <div class="fragment">
@@ -3245,7 +3284,7 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-101-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-111"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-101-1.png" width="960"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-102-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-114"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-102-1.png" width="960"></a></p>
 </figure>
 </div>
 </div>
@@ -3255,7 +3294,7 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-102-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-112"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-102-1.png" width="960"></a></p>
+<p><a href="level-up-workshop_files/figure-revealjs/unnamed-chunk-103-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-115"><img data-src="level-up-workshop_files/figure-revealjs/unnamed-chunk-103-1.png" width="960"></a></p>
 </figure>
 </div>
 </div>
@@ -3270,13 +3309,13 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="https://github.com/cararthompson/tidytuesdays/raw/main/plots/202301_birds.png" class="lightbox" data-gallery="quarto-lightbox-gallery-113"><img data-src="https://github.com/cararthompson/tidytuesdays/raw/main/plots/202301_birds.png"></a></p>
+<p><a href="https://github.com/cararthompson/tidytuesdays/raw/main/plots/202301_birds.png" class="lightbox" data-gallery="quarto-lightbox-gallery-116"><img data-src="https://github.com/cararthompson/tidytuesdays/raw/main/plots/202301_birds.png"></a></p>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="https://github.com/cararthompson/tidytuesdays/raw/main/plots/202209_lego.png" class="lightbox" data-gallery="quarto-lightbox-gallery-114"><img data-src="https://github.com/cararthompson/tidytuesdays/raw/main/plots/202209_lego.png"></a></p>
+<p><a href="https://github.com/cararthompson/tidytuesdays/raw/main/plots/202209_lego.png" class="lightbox" data-gallery="quarto-lightbox-gallery-117"><img data-src="https://github.com/cararthompson/tidytuesdays/raw/main/plots/202209_lego.png"></a></p>
 </figure>
 </div>
 </div>
@@ -3289,13 +3328,13 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="https://github.com/cararthompson/30DayChartChallenge/raw/main/plots/3.4_trees_penguins.png" class="lightbox" data-gallery="quarto-lightbox-gallery-115"><img data-src="https://github.com/cararthompson/30DayChartChallenge/raw/main/plots/3.4_trees_penguins.png"></a></p>
+<p><a href="https://github.com/cararthompson/30DayChartChallenge/raw/main/plots/3.4_trees_penguins.png" class="lightbox" data-gallery="quarto-lightbox-gallery-118"><img data-src="https://github.com/cararthompson/30DayChartChallenge/raw/main/plots/3.4_trees_penguins.png"></a></p>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="https://github.com/cararthompson/30DayChartChallenge2023/raw/main/plots/day11_circular.png" class="lightbox" data-gallery="quarto-lightbox-gallery-116"><img data-src="https://github.com/cararthompson/30DayChartChallenge2023/raw/main/plots/day11_circular.png"></a></p>
+<p><a href="https://github.com/cararthompson/30DayChartChallenge2023/raw/main/plots/day11_circular.png" class="lightbox" data-gallery="quarto-lightbox-gallery-119"><img data-src="https://github.com/cararthompson/30DayChartChallenge2023/raw/main/plots/day11_circular.png"></a></p>
 </figure>
 </div>
 </div>
@@ -3308,13 +3347,13 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="https://github.com/cararthompson/30DayChartChallenge2023/raw/main/plots/day03_flora.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-117"><img data-src="https://github.com/cararthompson/30DayChartChallenge2023/raw/main/plots/day03_flora.gif"></a></p>
+<p><a href="https://github.com/cararthompson/30DayChartChallenge2023/raw/main/plots/day03_flora.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-120"><img data-src="https://github.com/cararthompson/30DayChartChallenge2023/raw/main/plots/day03_flora.gif"></a></p>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="https://github.com/cararthompson/tidytuesdays/raw/main/plots/202007c_pets.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-118"><img data-src="https://github.com/cararthompson/tidytuesdays/raw/main/plots/202007c_pets.gif"></a></p>
+<p><a href="https://github.com/cararthompson/tidytuesdays/raw/main/plots/202007c_pets.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-121"><img data-src="https://github.com/cararthompson/tidytuesdays/raw/main/plots/202007c_pets.gif"></a></p>
 </figure>
 </div>
 </div>
@@ -3327,14 +3366,6 @@ Predicted by sound properties - Passi &amp; Arun, 2022
 
 <section id="section" class="title-slide slide level1 center" data-background="#2C3D4F">
 <h1></h1>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="images/clapping-pingu.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-119"><img data-src="images/clapping-pingu.gif"></a></p>
-</figure>
-</div>
-</div><div class="column" style="width:50%;">
 <center>
 <h1>
 Over to you!
@@ -3342,16 +3373,14 @@ Over to you!
 <p><br></p>
 <p>hello@cararthompson.com</p>
 <p>Tw/Li: <span class="citation" data-cites="cararthompson">@cararthompson</span></p>
-<p>☕💻</p>
-<span style="color:#28A569">____</span> <br><br> Dataviz Commissions<br> Dataviz Design Systems<br> Training &amp; Consultations<br>
+<p><br></p>
+Dataviz Design Systems <span style="color:#28A569">|</span> Dataviz Commissions <span style="color:#28A569">|</span> Training &amp; Consultations
 </center>
-</div>
-</div>
 <div class="footer">
 <p><a href="https://www.cararthompson.com">cararthompson.com</a></p>
 </div>
-<p><img src="images/light-logo.png" class="slide-logo"></p>
-<div class="footer footer-default">
+
+<img src="images/light-logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 <p>Slides: <a href="https://www.cararthompson.com/talks/rmedicine2023-workshop/">cararthompson.com/talks/rmedicine2023-workshop/</a></p>
 </div>
 </section>
