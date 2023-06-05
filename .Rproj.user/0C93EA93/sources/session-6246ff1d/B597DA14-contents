@@ -1,0 +1,520 @@
+---
+title: "Recast Font and Color Design System"
+author: "Cara Thompson | R for the Rest of Us"
+date: '2023-03-15'
+output:
+  html_document:
+    css: "style.css"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
+                      dev = "ragg_png")
+
+library(tidyverse)
+```
+
+This document presents the following elements of the Recast dataviz design system developed by R for the Rest of Us, along with demonstrations of their application. 
+
+- **Font system development** - Fonts (header, body, mono spaced) to use in the plots and tables which emphasise the Recast branding
+- **Color system development** - Color scheme, anchored around the main Recast color, which scales well to a maximum recommended number of colors and helps clients interpret the visualizations.
+- **Additional "theming" elements** - Grid line colors, text colors, zebra stripe colors for the tables. to make the whole dashboard more visually consistent and brand-recognizable
+
+
+## Fonts System
+
+### Fonts families
+
+**The fonts on your website** are:
+
+- **Barlow** for top menu and headers, typically with font weight 600
+- **Oxygen** for text body, typically with font weight 400
+
+These work well together, and are nice and clear for "functional text", so lend themselves nicely to dataviz and tables. 
+
+In tables, it can sometimes be useful to also **include a mono spaced font**, to allow easy comparison between long numbers. In choosing a monospaced, we want it to be in keeping with the two other fonts in style, but it needs to not draw attention to itself. Although **Oxygen Mono** is a safe bet, sticking within the same font family, we found **Noto Sans Mono** easier to read and less distracting. It retains a similar shape to Oxygen and Barlow, and will work well alongside them to add a bit of text functionality to the tables without screaming "mono spaced font".
+
+### Text colors
+
+The text color on your website is `#121212`. As a general rule, we want to avoid absolute black and absolute white, because a) they don't look good on screen, and b) avoiding absolute white backgrounds helps with accessibility by making the page less overwhelming to some readers. The current text color is a good color to use as our starting point. Here we provide two extra text colors, which are lighter version of the main text color. These are useful when adding text hierarchy to the main page and to annotations and tooltips within the data visualizations. 
+
+
+```{r, fig.height=1}
+# monochromeR::generate_palette("#121212",
+#                                        modification = "go_lighter", 
+#                                        n_colors = 8,       
+#                                        view_palette = TRUE)
+
+
+monochromeR::view_palette(c("#121212", "#2d2d2d", "#484848"))
+
+```
+
+The aim of text hierarchy is to make the main thing we want to draw attention to stand out. We have provided an example below of how to do this within tooltips. 
+
+### Font system demo
+
+**Here is how we recommend applying the font system within the dashboard pages**. Using relative sizes for the headers compared to the main body of text allows the text to scale well across different devices / screen sizes. These relative sizes work well with the fonts you have; feel free to adjust if you want more subtle headings, but these suggested sizes provide good text hierarchy. There is a 0.6 difference between the subheader and each level either side of it. There are no hard rules here, but these relative sizes provide a good compromise between what people tend to suggest for mobile vs desktop sites. 
+
+- **Section Headers:** `#2d2d2d`, size = 2.4em, weight = 600, Barlow
+- **Subsection headers:** `#484848`, size = 1.8em, weight = 600, Barlow
+- **Sub-subsection headers:** `#2d2d2d`, size = 1.2em, weight = 600, Barlow
+- **Body text:** `#121212`, weight = 400
+
+And here is the effect:
+
+
+> <span style='font-family:Barlow; font-size:2.4em; font-weight:600; color: #2d2d2d'>Here's a header</span><br>
+> <span style='font-family:Barlow; font-size:1.8em; font-weight:600; color: #484848'>Here's a subheader</span><br>
+> <span style='font-family:Barlow; font-size:1.2em; font-weight:600; color: #484848'>Here's a subheader</span><br>
+<span style='font-family:Oxygen;color:#121212'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+>
+> - <span style='font-family:Noto Sans Mono;color:#121212'>$123,456,789</span>
+> - <span style='font-family:Noto Sans Mono;color:#121212'>$12,350</span>
+> - <span style='font-family:Noto Sans Mono;color:#121212'>$123,967</span>
+
+**Within the data visualizations and tables, we recommend**: 
+
+- **Important text:** `#121212`, Oxygen (e.g. key values / annotations that need to stand out)
+- **Descriptive text:** `#484848`, Oxygen (e.g. descriptions to help the interpretation of the key values)
+- **Numerical text where length of string is a useful extra visual cue**: Noto Sans Mono
+
+We will demo how these work together once we have built up the color scheme and additional styling elements below.
+
+
+## Color System
+
+### Using colors semantically
+
+For presentation of data to do with spending and selling, we blended <span style='background-color:#e27c66'> the Recast color (`#e27c66`) </span> with a sunny color for sales, a murky purple for money spent, and a lighter green and darker green for ROI and MROI:
+
+```{r, fig.height=2}
+# monochromeR::generate_palette("#e27c66", blend_color = "#facd00", n_colors = 8, view_palette = T)
+# monochromeR::generate_palette("#e27c66", blend_color = "#440a56", n_colors = 8, view_palette = T)
+# monochromeR::generate_palette("#e27c66", blend_color = "#04a19d", n_colors = 8, view_palette = T)
+# monochromeR::generate_palette("#e27c66", blend_color = "#084150", n_colors = 8, view_palette = T)
+# monochromeR::generate_palette("#334C54", "go_darker", n_colors = 10, view_palette = T)
+
+monochromeR::view_palette(c("#ECA137", "#99475E", "#639185", "#2E454C"))
+
+```
+
+In addition to these four colors, we created a "rapid contraction" color (red) and a "growth" color (which is between the ROI and MROI colors): 
+
+
+```{r, fig.height=2}
+# monochromeR::generate_palette("#e27c66", blend_color = "red", n_colors = 8, view_palette = T)
+# monochromeR::generate_palette("#639185", blend_color = "#2E454C", n_colors = 8, view_palette = T)
+# monochromeR::generate_palette("#EF4337", blend_color = "#4D716E", n_colors = 8, view_palette = T)
+
+monochromeR::view_palette(c("#ECA137", "#99475E", "#639185", "#2E454C", "#DC483D", "#446564"))
+
+```
+
+
+These colors work well with the muted Recast colors and add interpretability to the graphs by evoking gain, loss and growth. They also translate well for readers with different types of color perception. 
+
+```{r, fig.height=4}
+
+colorblindr::cvd_grid()
+
+```
+
+
+
+### Part to whole
+
+Several of the tables and data visualizations show a comparison of part to whole (e.g. waterfall plot, last week spend, spend summary table). 
+
+For these, we suggest using a lighter version of the main color for the "parts" that make up the "whole" (full color). The suggested colors are deliberaly transparent, to emphasis the successive layering which results in the full "total" color. 
+
+We could start from a slightly lighter version of the Recast color...
+
+```{r, fig.height = 1}
+# monochromeR::generate_palette("#e27c66", "go_lighter", n_colors = 8, view_palette = T)
+
+monochromeR::view_palette(c("#E58A77", alpha("#E58A77", 0.5)))
+
+```
+
+... or from any of the other "semantic" colors:
+
+```{r, fig.height = 1}
+monochromeR::view_palette(c("#ECA137", alpha("#ECA137", 0.5)))
+monochromeR::view_palette(c("#99475E", alpha("#99475E", 0.5)))
+monochromeR::view_palette(c("#639185", alpha("#639185", 0.5)))
+monochromeR::view_palette(c("#2E454C", alpha("#2E454C", 0.5)))
+```
+
+
+### A general color scheme where no semantics are involved
+
+Where more colors are needed, or where the semantics above are unhelpful (e.g. associating Facebook with growth and Streaming TV with loss would be unfortunate), we suggest the following color palette which scales nicely to 9 colors, based on the Recast color and the blue and neutral tones of the photos on the main website, and retains good color accessibility. 
+
+```{r, fig.height=1}
+# Recast photo colors:
+
+# Dark blue: #253143
+# Light blue: #9db6d5
+# Dark neutral: #050507
+# Light neutral: #d7dad6
+
+# Palette anchors: 1e1211 d7dad6 e58a77 9db6d5 253143 
+
+# monochromeR::generate_palette("#d7dad6", blend_color = "#e27c66", n_colors = 8, view_palette = T)
+
+monochromeR::view_palette(c('#1e1211', '#7b7674', '#d7dad6', '#deb2a7', '#e58a77', '#c1a0a6', '#9db6d5', '#61748c', '#253143'))
+
+```
+
+```{r, fig.height=2}
+
+colorblindr::cvd_grid()
+
+```
+
+This palette is based on five anchor colors, which can be fed into color ramp functions to scale to the desired number of colors:
+
+> - `#1e1211` `#d7dad6` `#e58a77` `#9db6d5` `#253143` 
+
+We suggest the following color combinations, ranging from 1 to 9 colors. Note that the colors change as the number of colors increases beyond 7, to maximise visibility across the light-to-dark spectrum:
+
+```{r, fig.height=1}
+monochromeR::view_palette(c('#758aa4'))
+monochromeR::view_palette(c('#758aa4', '#253143'))
+monochromeR::view_palette(c('#e58a77', '#758aa4', '#253143'))
+monochromeR::view_palette(c('#999794', '#e58a77', '#758aa4', '#253143'))
+monochromeR::view_palette(c('#999794', '#e58a77', '#b5a7b6', '#758aa4', '#253143'))
+monochromeR::view_palette(c('#999794', '#dcbfb6', '#e58a77', '#b5a7b6', '#758aa4', '#253143'))
+monochromeR::view_palette(c('#1e1211', '#999794', '#dcbfb6', '#e58a77', '#b5a7b6', '#758aa4', '#253143'))
+monochromeR::view_palette(c('#1e1211', '#888482', '#d9cfc8', '#e1a192', '#d09792', '#a7b0c8', '#6a7d96', '#253143'))
+monochromeR::view_palette(c('#1e1211', '#7b7674', '#d7dad6', '#deb2a7', '#e58a77', '#c1a0a6', '#9db6d5', '#61748c', '#253143'))
+
+```
+
+
+### Predictive line with confidence estimates
+
+Because all the proposed colors are based around the Recast color, they pair well with a faded version of the Recast color as a confidence interval band. Alternatively, you could use the lighter versions of the "part to whole" colors as the confidence band colors. These are demonstrated in the "Bringing it all together" section. 
+
+
+## Additional theming elements to increase brand recognition
+
+### Dashboard tab and menu styling
+
+
+In addition to using the fonts and colors above throughout the dashboard, consider replicating the orange underline and color when selecting tabs in the dashboard as follows. The Recast color is nicely distinctive - make more of it! Limit the number of colors we see at the very start of the page, to keep everything on brand from the very start. 
+
+![](images/shot_230315_105114.png)
+
+![](images/shot_230315_110415.png)
+
+
+### Background color for the dashboard
+
+The Recast website's background color is `#faf8f4`. Consider reusing this background on the dashboard. Keeping a white background on the visualizations will help them stand out and give structure to the page. By applying the text stylings above and changing the "background elements" to a color associated with Recast, you will anchor clear visualizations and tables within your own brand system. 
+
+
+![](images/shot_230315_111906.png){width=40%} ![](images/shot_230315_111834.png){width=40%}
+
+
+### Grid lines, zebra stripes and tool tips
+
+The key here is to provide a frame for the extra information, of for segmenting pieces of information, in a way that draws attention to the information, not to the frame. Here's what we suggest. 
+
+- Grid lines, tooltip background and zebra stripes: `#F7F0EB`
+- Table lines: `#e4b4a6`
+- Tool tip text formatting: to ensure good contrast, we suggest using `#F7F0EB` as a background - the same as the grid lines to reduce visual clutter - with the body text color (`#121212`) combined with the lighter text color (`#484848`) for text hierarchy
+
+These are demonstrated in the section below.
+
+
+## Bringing it all together
+
+### Dashboard
+
+Using the same fonts and text colors on the dashboard as on the website, along with the proposed background color (`#faf8f4`) will increase brand consistency as discussed and demonstrated above. 
+
+### Tables
+
+Applying the fonts and text colors above, in conjunction with the table line and zebra stripe colors results in a table which will sit nicely within the branding of the website.
+
+```{r}
+
+palmerpenguins::penguins %>%
+  filter(!is.na(sex)) %>%
+  group_by(island, sex) %>%
+  summarise(count = length(island), 
+            flipper_length = round(mean(flipper_length_mm)),
+            bill_length = round(mean(bill_length_mm))) %>%
+  head(10) %>%
+  flextable::flextable() %>%
+  flextable::theme_zebra(odd_body = "#F7F0EB", odd_header = "white") %>%
+  flextable::border(i = 1, part = "header", border.top = officer::fp_border(color = "#e4b4a6", width = 2)) %>%
+  flextable::border(i = 1, border.top = officer::fp_border(color = "#e4b4a6")) %>%
+  flextable::border(i = 3, border.top = officer::fp_border(color = "#e4b4a6")) %>%
+  flextable::border(i = 5, border.top = officer::fp_border(color = "#e4b4a6")) %>%
+  flextable::font(part = "all", fontname = "Oxygen") %>%
+  flextable::font(part = "body", j = 3:5, fontname = "Noto Sans Mono") %>%
+  flextable::color(part = "body", color = "#121212") %>%
+  flextable::color(part = "header", color = "#484848") %>%
+  flextable::set_header_labels(island = "Island", sex = "Sex", count = "Count", flipper_length = "Flipper length", bill_length = "Bill length") %>%
+  flextable::width(j = 4:5, 1.5)
+
+```
+
+<!-- ![](images/shot_230316_105234.png){width=50%} -->
+
+If additional "semantic" colors are required for zebra stripes (i.e. based on the "spend" color or the "growth" colors), we can provide those also. 
+
+### Plots
+
+#### Part to whole
+
+```{r}
+
+library(cowplot)
+
+recast_col <- palmerpenguins::penguins %>%
+  group_by(island) %>%
+  count() %>%
+  ungroup() %>%
+  add_row(island = "Total", n = nrow(palmerpenguins::penguins)) %>%
+  ggplot() +
+  geom_bar(aes(x = island, y = n,
+               fill = island),
+           stat = "identity",
+           color = "#E58A77", 
+           show.legend = FALSE) +
+  coord_flip() +
+  scale_fill_manual(values = c(rep(alpha("#E58A77", 0.5), 3), "#E58A77")) +
+  theme_minimal() +
+  theme(text = element_text(family = "Oxygen",
+                            color = "#484848"),
+        axis.title = element_blank(),
+        panel.grid = element_line(color = "#F7F0EB"))
+
+spend_col <- palmerpenguins::penguins %>%
+  group_by(island) %>%
+  count() %>%
+  ungroup() %>%
+  add_row(island = "Total", n = nrow(palmerpenguins::penguins)) %>%
+  ggplot() +
+  geom_bar(aes(x = island, y = n,
+               fill = island),
+           stat = "identity",
+           color = "#99475E", 
+           show.legend = FALSE) +
+  coord_flip() +
+  scale_fill_manual(values = c(rep(alpha("#99475E", 0.5), 3), "#99475E")) +
+  theme_minimal() +
+  theme(text = element_text(family = "Oxygen",
+                            color = "#484848"),
+        axis.title = element_blank(),
+        panel.grid = element_line(color = "#F7F0EB"))
+
+growth_col <- palmerpenguins::penguins %>%
+  group_by(island) %>%
+  count() %>%
+  ungroup() %>%
+  add_row(island = "Total", n = nrow(palmerpenguins::penguins)) %>%
+  ggplot() +
+  geom_bar(aes(x = island, y = n,
+               fill = island),
+           stat = "identity",
+           color = "#2E454C", 
+           show.legend = FALSE) +
+  coord_flip() +
+  scale_fill_manual(values = c(rep(alpha("#2E454C", 0.5), 3), "#2E454C")) +
+  theme_minimal() +
+  theme(text = element_text(family = "Oxygen",
+                            color = "#484848"),
+        axis.title = element_blank(),
+        panel.grid = element_line(color = "#F7F0EB"))
+
+sales_col <- palmerpenguins::penguins %>%
+  group_by(island) %>%
+  count() %>%
+  ungroup() %>%
+  add_row(island = "Total", n = nrow(palmerpenguins::penguins)) %>%
+  ggplot() +
+  geom_bar(aes(x = island, y = n,
+               fill = island),
+           stat = "identity",
+           color = "#ECA137", 
+           show.legend = FALSE) +
+  coord_flip() +
+  scale_fill_manual(values = c(rep(alpha("#ECA137", 0.5), 3), "#ECA137")) +
+  theme_minimal() +
+  theme(text = element_text(family = "Oxygen",
+                            color = "#484848"),
+        axis.title = element_blank(),
+        panel.grid = element_line(color = "#F7F0EB"))
+
+plot_grid(recast_col, spend_col, growth_col, sales_col)
+
+```
+
+
+#### Sales, spend, growth, and confidence intervals
+
+Either using `#e4b4a6` for the confidence interval band...
+
+```{r}
+
+palmerpenguins::penguins %>%
+  ggplot() +
+  geom_smooth(aes(x = bill_length_mm, y = flipper_length_mm,
+               color = island),
+           show.legend = FALSE, 
+           fill = "#e4b4a6" ) +
+  facet_grid(~island) +
+  theme_minimal() +
+  scale_color_manual(values = c("#ECA137", "#99475E", "#639185")) +
+  theme(text = element_text(family = "Oxygen",
+                            color = "#484848"),
+        strip.text = element_text(size = 12, color = "#121212"),
+        axis.title = element_blank(),
+        panel.grid = element_line(color = "#F7F0EB"))
+
+```
+
+... or colors based on the semantic palette.
+
+```{r}
+
+palmerpenguins::penguins %>%
+  ggplot() +
+  geom_smooth(aes(x = bill_length_mm, y = flipper_length_mm,
+               color = island, fill = island),
+           show.legend = FALSE) +
+  facet_grid(~island) +
+  theme_minimal() +
+  scale_color_manual(values = c("#ECA137", "#99475E", "#639185")) +
+  scale_fill_manual(values = c(alpha("#ECA137", 0.3), alpha("#99475E", 0.3), alpha("#639185", 0.3))) +
+  theme(text = element_text(family = "Oxygen",
+                            color = "#484848"),
+        strip.text = element_text(size = 12, color = "#121212"),
+        axis.title = element_blank(),
+        panel.grid = element_line(color = "#F7F0EB"))
+
+```
+
+
+```{r}
+
+palmerpenguins::penguins %>%
+  filter(!is.na(sex)) %>%
+  ggplot() +
+  geom_smooth(aes(x = bill_length_mm, y = flipper_length_mm,
+               color = sex, fill = sex),
+           show.legend = FALSE) +
+  facet_grid(~island) +
+  theme_minimal() +
+  scale_color_manual(values = c("#DC483d", "#446564")) +
+  scale_fill_manual(values = c("#e4b4a6", "#e4b4a6")) +
+  theme(text = element_text(family = "Oxygen",
+                            color = "#484848"),
+        strip.text = element_text(size = 12, color = "#121212"),
+        axis.title = element_blank(),
+        panel.grid = element_line(color = "#F7F0EB"))
+
+```
+
+
+
+#### Additional colors when they are needed
+
+```{r}
+
+set_one <- time <- as.numeric(rep(seq(1,7),each=7))  # x Axis
+value <- runif(49, 10, 100)               # y Axis
+group <- rep(LETTERS[1:7],times=7)        # group, one shape per group
+data <- data.frame(time, value, group)
+
+# stacked area chart
+set_one <- ggplot(data, aes(x=time, y=value, fill=group)) + 
+    geom_area() +
+  scale_color_manual(values = c("#9db6d5", "#7b7674", "#253143", '#d7dad6', '#deb2a7', '#e58a77', '#c1a0a6')) +
+  scale_fill_manual(values = c("#9db6d5", "#7b7674", "#253143", '#d7dad6', '#deb2a7', '#e58a77', '#c1a0a6')) +
+  theme_minimal() + 
+  theme(text = element_text(family = "Oxygen",
+                            color = "#484848"),
+        strip.text = element_text(size = 12, color = "#121212"),
+        axis.title = element_blank(),
+        panel.grid = element_line(color = "#F7F0EB"))
+
+set_two <- palmerpenguins::penguins %>%
+  group_by(island, species) %>%
+  count() %>%
+  ggplot() +
+  geom_bar(aes(x = island , y = n, fill = species),
+           stat = "identity",
+           color = "#ffffff",
+           show.legend = FALSE) +
+  theme_minimal() +
+  scale_color_manual(values = c("#253143", "#7b7674", "#61748c")) +
+  scale_fill_manual(values = c("#253143", "#7b7674", "#61748c")) +
+  theme(text = element_text(family = "Oxygen",
+                            color = "#484848"),
+        strip.text = element_text(size = 12, color = "#121212"),
+        axis.title = element_blank(),
+        panel.grid = element_line(color = "#F7F0EB"))
+
+plot_grid(set_one, set_two)
+
+
+```
+
+
+#### Tooltips
+
+Using the proposed tooltip background color along with the proposed text hierarchy and plot gridlines, we get a tooltip which provides additional information within the Recast aesthetic, without being distracting as a tooltip per se. 
+
+```{r, fig.height}
+
+# monochromeR::view_palette(c("#F7F0EB", "#121212", "#484848"))
+
+ggplot() +
+  geom_point(aes(x = 1, y = 1),
+             color = "#e27c66",
+             size = 4) +
+  ggtext::geom_textbox(aes(x = 1, y = 1, 
+                           label = "<span style='font-family:Oxygen; color:#515151; font-size:12pt'>A key number</span><br>
+                           $123,456.78<br><span style='font-family:Oxygen; color:#515151; font-size:12pt'>Another important one</span><br>
+                           $76,543.21"),
+                       size = 7,
+                       vjust = -0.5,
+                       halign = 1,
+                       box.color = "#FFFFFF",
+                       color = "#121212",
+                       fill = "#F7F0EB",
+                       family = "Noto Sans Mono") +
+  theme_void() +
+  theme(text = element_text(family = "Oxygen",
+                            color = "#484848"),
+        axis.title = element_blank(),
+        panel.grid = element_line(color = "#F7F0EB"))
+
+```
+
+As with the zebra stripes, additional background colors can be created to pair with semantic colors. 
+
+## Future work
+
+We haven't done a full review of the visualizations and tables, as this is something you wanted to consider once you've had time to implement the recommendations above (and see what we're like to work with!). However, we couldn't help ourselves from noting down a few things as we worked through the visualizations to produce this design system. So here are a few freebies:
+
+- Consider formatting all dates to the same format to minimise the amount of thinking a client needs to do (e.g. Jan 8th 2023 is much easier to read than 01-08-2023, specially if you're working across US and UK audiences)
+- The top image of https://getrecast.com/product/ mentions "dependant variable" - should that be "dependent"?
+- Consider reworking the row names in the tables and tabs into title case. At the moment, they read as e.g. "facebook_prospecting". `stringr::str_to_title` could be an easy on-the-fly solution when rendering the tables, and it would align the text with how it's presented [here](https://getrecast.com/product/). You'll need to get rid of the underscores before converting to title case:
+
+```{r, echo = TRUE}
+
+snakecase::to_any_case("facebook_prospecting", case = "title")
+
+```
+
+- In your tables, try to separate out the "Overall" rows visually - bold text or a band of color should do the trick nicely. You've done that in the Forecaster, but not in the Insights page.
+- Consider adding an icon in a corner of each of the channel-level plots, to remind the reader what they're looking at.
+- Make the MRO/ROI legend appear in the same order as the MRO/ROI bars
+- In the Upper-Lower effects dataviz, ordering by spend amount would make it easier for readers to compare variables; also make sure the text changes from dark to light when the color becomes dark.

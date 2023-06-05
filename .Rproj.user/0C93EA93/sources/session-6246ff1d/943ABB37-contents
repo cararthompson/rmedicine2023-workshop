@@ -1,0 +1,785 @@
+---
+title: "Building a Dataviz Design System for a Medical Research Project"
+subtitle: |
+  RMedicine 2023 | `r verbaliseR::prettify_date('2023-06-08', uk_or_us = 'UK')`
+from: markdown+emoji
+format:
+  revealjs: 
+    transition: none
+    slide-number: false
+    chalkboard: 
+      buttons: false
+    preview-links: auto
+    logo: images/light-logo.png
+    theme: cararquarto.scss
+    footer: |
+        Recording: [cararthompson.com/talks/rmedicine2023-dataviz-design-system/](https://www.cararthompson.com/talks/rmedicine2023-dataviz-design-system/)
+filters:
+ - code-visibility
+lightbox: auto
+fig-height: 9
+auto-animate: true
+title-slide-attributes:
+    data-background-image: "images/dark-background.png"
+    data-background-size: stretch
+    data-background-opacity: "1"
+    data-background-color: black
+---
+
+# What is a Dataviz Design System? {visibility=hidden}
+
+## What is a Dataviz Design System?
+
+```{r setup}
+knitr::opts_chunk$set(dev = "ragg_png")
+library(tidyverse)
+library(ophelia)
+```
+
+Dataviz-friendly brand guidelines
+
+::: incremental
+- Colours
+- Fonts
+- Simple rules
+::: 
+
+## What is a Dataviz Design System? 
+
+**Dataviz-friendly** brand guidelines
+
+::: incremental
+- Purposeful colour semantics
+- Dataviz-friendly text formatting
+- Preferred `geom`s
+- Accessibility
+::: 
+
+::: fragment
+🎨 Graphs, tables, presentations, documents... 
+:::
+
+
+## Why have a Dataviz Design System? 
+
+"So much more than pretty graphs"
+
+::: incremental
+- Clear visual identity
+- Decision-making & trial-and-error energy saver
+- `#rstats` 💙  Automate the "boring stuff" to focus on the stuff that needs your expertise
+:::
+
+## Building a dataviz design system
+
+<br>
+
+::::{.columns}
+
+:::{.column width=50%}
+<center>
+### Functional
+
+- Text hierarchy
+- Number of colours + symbolism
+- Accessibility
+</center>
+:::
+
+:::{.column width=50%}
+
+<center>
+### Aesthetic
+
+- On-brand
+- Personality
+- Nice extras (background, toggles)
+</center>
+
+:::
+
+::::
+
+<br>
+
+<center>
+### Implementation
+
+- Documentation
+- Automation
+- Flexibility
+
+</center>
+
+
+# Let's go! {background=#2C3D4F}
+
+::: footer
+[Dr Claire Meek](https://www.diabetespregnancyresearch.co.uk/) - [Ophelia study](https://www.diabetespregnancyresearch.co.uk/ophelia-study)
+:::
+
+## Gathering specific requirements
+
+::::{.columns}
+
+:::{.column width=75%}
+
+::: incremental
+
+- What kind of colours would you like to be associated with this project? 
+- How many colours do you need?
+- Any colour semantics we should include? 
+:::
+
+:::
+
+:::{.column width=25%}
+
+![](https://static.wixstatic.com/media/de80e7_58c2315749c04bfe8b643231d8b6ac01~mv2.jpg/v1/fill/w_525,h_691,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Photo_ClaireMeek0019.jpg)
+
+:::
+
+::::
+
+::::{.columns}
+
+:::{.column width=33%}
+
+:::
+
+:::{.column width=66%}
+
+::: incremental
+- What types of plots do you use a lot? 
+- How much personality would you like to convey in the text formatting? 
+:::
+
+:::
+
+::::
+
+## Colour inspiration
+
+::::{.columns}
+
+:::{.column width=50%}
+:::{.fragment}
+![](images/d7hftxdivxxvm.cloudfront.webp)
+:::
+:::
+
+
+:::{.column width=40%}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+:::{.fragment}
+- [imagecolorpicker.com](https://imagecolorpicker.com/)
+- [www.vis4.net/palettes - Chroma.js Color Palette Helper](https://www.vis4.net/palettes/)
+:::
+:::
+
+::::
+
+::: footer
+[Leon Morrocco | Untitled (Jean resting)](https://www.artsy.net/artwork/leon-morrocco-untitled-jean-resting)
+:::
+
+## Colour inspiration
+
+![](images/chroma-js.png)
+
+
+## Colour inspiration 🥳
+
+![](images/chroma-js-32.png)
+
+## Font inspiration
+
+::::{.columns}
+
+:::{.column width=50%}
+
+::: incremental
+
+- Make it easy for the end user!
+  - Easy to find & install
+  - `.ttf`
+- Italics & bold
+- Numbers & special characters
+- Easy to read
+
+:::
+
+:::
+
+:::{.column width=50%}
+
+<br>
+<br>
+<br>
+<br>
+
+::: fragment
+![](images/font-1.png)
+
+
+:::
+:::
+
+::::
+
+
+## Font inspiration
+
+::::{.columns}
+
+:::{.column width=50%}
+
+- Make it easy for the end user!
+  - Easy to find & install
+  - `.ttf`
+- Italics & bold
+- Numbers & special characters
+- Easy to read
+
+:::
+
+:::{.column width=50%}
+
+<br>
+<br>
+<br>
+<br>
+
+![](images/font-2.png)
+
+:::
+
+::::
+
+::: footer
+Find out more: [Oliver Schöndorfer's Font Matrix](https://pimpmytype.com/font-matrix/)
+:::
+
+# Implementation {background=#2C3D4F}
+
+## Colours 
+
+Anchor colours
+
+```{r, eval=FALSE}
+#| echo: true
+ophelia_colours <- list(
+  deep_purple = "#2B1725",
+  dark_red = "#56242b",
+  purple =  "#4f3c78",
+  gold = "#d3970a",
+  pink = "#e0b5ba",
+  light_blue = "#7691b1",
+  dark_green = "#375248",
+  na_value = "#6A686F",
+  ... # and a few more derived from these 
+)
+
+```
+
+
+## Colours
+
+Several palettes, derived from the anchor colours
+
+```{r, eval=FALSE}
+#| echo: true
+ophelia_palettes <- list(
+  default = c(ophelia_colours$deep_purple,
+              ophelia_colours$dark_red,
+              ophelia_colours$purple,
+              ophelia_colours$gold,
+              ophelia_colours$pink,
+              ophelia_colours$light_blue,
+              ophelia_colours$dark_green),
+  cool_colours = c(ophelia_colours$dark_green,
+                   ophelia_colours$light_blue,
+                   ophelia_colours$pale_green),
+  warm_colours = c(ophelia_colours$deep_purple,
+                   ophelia_colours$pink,
+                   ophelia_colours$gold),
+  neg_to_pos = c(ophelia_colours$deep_purple,
+                 ophelia_colours$pale_pink,
+                 ophelia_colours$bright_gold),
+  greens = c(ophelia_colours$dark_green,
+             ophelia_colours$pale_green),
+  purples = c(ophelia_colours$deep_purple,
+              ophelia_colours$pale_purple)
+)
+```
+
+
+## Colours
+
+Feed the palettes into a bespoke function that uses ggplot scale functions
+
+```{r, eval=FALSE}
+#| echo: true
+
+scale_colour_ophelia <- function(palette = "default",
+                                 continuous = FALSE,
+                                 .colours = ophelia_colours,
+                                 .palettes = ophelia_palettes,
+                                 ...) {
+  
+  if(continuous == FALSE) {
+    
+    ggplot2::discrete_scale(palette = grDevices::colorRampPalette(.palettes[[palette]]),
+                            aesthetics = "colour",
+                            scale_name = .palettes[[palette]],
+                            na.value = .colours$na_value,
+                            ...)
+    
+  } else {
+    
+    ggplot2::scale_colour_gradientn(colours = .palettes[[palette]],
+                                    na.value = .colours$na_value,
+                                    ...)
+  }
+  
+}
+```
+
+
+## Colours
+
+... with a few extra touches
+
+<center>
+![](images/scale_colour.png)
+</center>
+
+## Colours 
+
+Text colours: find a "starting" colour the ties in with all the palettes
+
+```{r}
+#| echo: true
+#| output-location: column-fragment
+#| message: false
+#| warning: false
+monochromeR::generate_palette(
+  ophelia_colours$dark_red, 
+  blend_colour = ophelia_colours$purple, 
+  n_colours = 5, 
+  view_palette = TRUE)
+```
+
+
+## Colours 
+
+Text colours: feed it into monochromeR to generate a dark text colour
+
+```{r}
+#| echo: true
+#| output-location: column-fragment
+#| message: false
+#| warning: false
+monochromeR::generate_palette(
+  "#532D49", 
+  "go_darker", 
+  n_colours = 5, 
+  view_palette = TRUE)
+```
+
+
+
+## Colours 
+
+Text colours: feed **that** dark text colour into monochromeR again to generate a light text colour
+
+```{r}
+#| echo: true
+#| output-location: column-fragment
+#| message: false
+#| warning: false
+monochromeR::generate_palette(
+  "#10090E", 
+  "go_lighter", 
+  n_colours = 8, 
+  view_palette = TRUE)
+```
+
+
+
+## Plot theme
+
+`theme_ophelia()`
+
+::: incremental
+
+- Removing clutter
+- Adding custom fonts and text hierarchy
+- Custom margins, relative text sizes, `ggtext::element_markdown` or `ggtext::element_textbox_simple`, ...
+- Effortlessly achieve a consistent aesthetic beyond the colour scheme
+
+:::
+
+
+::: footer
+Find out more: [Variation on a ggtheme](https://www.cararthompson.com/talks/nhsr2022-ggplot-themes/)
+:::
+
+
+## Plot theme
+
+... with a few option toggles
+
+<center>
+
+![](images/theme.png)
+</center>
+
+
+# 📦 `{ophelia}` {background=#2C3D4F}
+
+
+## Two extra lines
+
+## Two extra lines
+
+```{r}
+#| echo: true
+#| output-location: column-fragment
+palmerpenguins::penguins %>%
+  ggplot() +
+  geom_point(aes(x = bill_length_mm,
+                 y = flipper_length_mm,
+                 colour = species,
+                 size = body_mass_g)) +
+  labs(x = "Bill length (mm)",
+       y = "Flipper length (mm)",
+       title = "Let's try some *italics* in the title",
+       subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+       caption = "Data from {palmerpenguins}") +
+  guides(size = "none")
+
+```
+
+
+
+## Two extra lines
+
+```{r}
+#| echo: true
+#| code-line-numbers: 13-14
+#| output-location: column
+palmerpenguins::penguins %>%
+  ggplot() +
+  geom_point(aes(x = bill_length_mm,
+                 y = flipper_length_mm,
+                 colour = species,
+                 size = body_mass_g)) +
+  labs(x = "Bill length (mm)",
+       y = "Flipper length (mm)",
+       title = "Let's try some *italics* in the title",
+       subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+       caption = "Data from {palmerpenguins}") +
+  guides(size = "none") +
+  scale_colour_ophelia() +
+  theme_ophelia()
+
+```
+
+
+## Two extra lines
+
+```{r}
+#| echo: true
+#| output-location: column
+palmerpenguins::penguins %>%
+  ggplot() +
+  geom_point(aes(x = bill_length_mm,
+                 y = flipper_length_mm,
+                 fill = body_mass_g,
+                 size = body_mass_g),
+             shape = 21,
+             colour = "white",
+             alpha = 0.8) +
+  labs(x = "Bill length (mm)",
+       y = "Flipper length (mm)",
+       title = "Let's try some *italics* in the title",
+       subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+       caption = "Data from {palmerpenguins}") +
+  guides(size = "none")
+```
+
+
+## Two extra lines
+
+```{r}
+#| echo: true
+#| code-line-numbers: 16-17
+#| output-location: column
+palmerpenguins::penguins %>%
+  ggplot() +
+  geom_point(aes(x = bill_length_mm,
+                 y = flipper_length_mm,
+                 fill = body_mass_g,
+                 size = body_mass_g),
+             shape = 21,
+             colour = "white",
+             alpha = 0.8) +
+  labs(x = "Bill length (mm)",
+       y = "Flipper length (mm)",
+       title = "Let's try some *italics* in the title",
+       subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+       caption = "Data from {palmerpenguins}") +
+  guides(size = "none") +
+  scale_fill_ophelia(continuous = TRUE) +
+  theme_ophelia()
+
+```
+
+
+
+## Two extra lines
+
+```{r}
+#| echo: true
+#| code-line-numbers: 17-18
+#| output-location: column
+palmerpenguins::penguins %>%
+  ggplot() +
+  geom_point(aes(x = bill_length_mm,
+                 y = flipper_length_mm,
+                 fill = body_mass_g,
+                 size = body_mass_g),
+             shape = 21,
+             colour = "white",
+             alpha = 0.8) +
+  labs(x = "Bill length (mm)",
+       y = "Flipper length (mm)",
+       title = "Let's try some *italics* in the title",
+       subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+       caption = "Data from {palmerpenguins}") +
+  guides(size = "none") +
+  scale_fill_ophelia(continuous = TRUE) +
+  theme_ophelia(base_text_size = 18)
+
+```
+
+
+## Two extra lines
+```{r}
+#| echo: true
+#| output-location: column
+palmerpenguins::penguins %>%
+  filter(!is.na(sex)) %>%
+  ggplot(aes(x = species,
+             fill = island),
+         stat = "count") +
+  geom_bar() +
+  labs(title = "Perfectly proportional penguins",
+       subtitle = "Where do they all live?",
+       caption = "Data from {palmerpenguins}") +
+  facet_grid(. ~ sex) 
+
+```
+
+
+
+## Two extra lines
+```{r}
+#| echo: true
+#| code-line-numbers: 11-13
+#| output-location: column
+palmerpenguins::penguins %>%
+  filter(!is.na(sex)) %>%
+  ggplot(aes(x = species,
+             fill = island),
+         stat = "count") +
+  geom_bar() +
+  labs(title = "Perfectly proportional penguins",
+       subtitle = "Where do they all live?",
+       caption = "Data from {palmerpenguins}") +
+  facet_grid(. ~ sex) +
+  scale_fill_ophelia(palette = "cool_colours") +
+  theme_ophelia(background_colour = FALSE,
+                base_text_size = 14)
+
+```
+
+
+
+
+
+## Two extra lines
+
+```{r}
+#| echo: true
+#| output-location: column
+palmerpenguins::penguins %>%
+  ggplot(aes(x = 1,
+             fill = species),
+         stat = "count") +
+  geom_bar() +
+  xlim(c(-0.5, 2)) +
+  coord_polar(theta = "y") +
+  labs(title = "Does anyone know if penguins like donuts?",
+       subtitle = "Not sure, but we know there are three species in the dataset",
+       caption = "Data from {palmerpenguins}")
+```
+
+
+
+
+## Two extra lines
+
+```{r}
+#| echo: true
+#| code-line-numbers: 11-14
+#| output-location: column
+palmerpenguins::penguins %>%
+  ggplot(aes(x = 1,
+             fill = species),
+         stat = "count") +
+  geom_bar() +
+  xlim(c(-0.5, 2)) +
+  coord_polar(theta = "y") +
+  labs(title = "Does anyone know if penguins like donuts?",
+       subtitle = "Not sure, but we know there are three species in the dataset",
+       caption = "Data from {palmerpenguins}") +
+  scale_fill_ophelia("warm_colours") +
+  theme_ophelia(void = TRUE,
+                base_text_size = 14,
+                background_colour = FALSE)
+```
+
+
+## Two extra lines
+
+```{r}
+#| echo: true
+#| output-location: column
+tibble(answer = factor(rep(c("Strongly Disagree", "Disagree", 
+                             "Agree", "Strongly Agree"), 2),
+                       levels = c("Strongly Disagree", "Disagree", 
+                                  "Strongly Agree", "Agree")),
+       percent = c(8, 12, 40, 10,
+                   6, 18, 34, 18),
+       group = sort(rep(c("Male", "Female"), 4))) %>%
+  mutate(display_percent = case_when(grepl("Dis|Neutral", answer) ~ -percent,
+                                     TRUE ~ percent)) %>%
+  ggplot() +
+  geom_col(aes(x = group,
+               fill = answer,
+               y = display_percent),
+           width = 0.8) +
+  labs(title = "Let's find out!",
+       subtitle = "How much do they agree with the statement \"Donuts are delicious\"?",
+       caption = "Totally made up data!",
+       x = "Percent",
+       fill = "Answer") +
+  scale_y_continuous(labels = function(x) paste0(abs(x), "%")) +
+  coord_flip()
+```
+
+
+## Two extra lines
+
+```{r}
+#| echo: true
+#| code-line-numbers: 26-27|22-25|28-29
+#| output-location: column
+tibble(answer = factor(rep(c("Strongly Disagree", "Disagree", 
+                             "Agree", "Strongly Agree"), 2),
+                       levels = c("Strongly Disagree", "Disagree", 
+                                  "Strongly Agree", "Agree")),
+       percent = c(8, 12, 40, 10,
+                   6, 18, 34, 18),
+       group = sort(rep(c("Male", "Female"), 4))) %>%
+  mutate(display_percent = case_when(grepl("Dis|Neutral", answer) ~ -percent,
+                                     TRUE ~ percent)) %>%
+  ggplot() +
+  geom_col(aes(x = group,
+               fill = answer,
+               y = display_percent),
+           width = 0.8) +
+  labs(title = "Let's find out!",
+       subtitle = "How much do they agree with the statement \"Donuts are delicious\"?",
+       caption = "Totally made up data!",
+       x = "Percent",
+       fill = "Answer") +
+  scale_y_continuous(labels = function(x) paste0(abs(x), "%")) +
+  coord_flip() +
+  scale_fill_ophelia(
+    palette = "neg_to_pos", 
+    limits = c("Strongly Disagree", "Disagree", 
+               "Agree", "Strongly Agree")) +
+  theme_ophelia(background_colour = FALSE,
+                base_text_size = 14) +
+  theme(axis.title = element_blank(),
+        legend.position = "bottom")
+```
+
+
+## {background-color="black" background-image="images/plot-collection.png"}
+
+## Next steps
+
+::: incremental
+
+- Add a table-styling function
+- Finalise documentation
+- Share package with the whole team
+  - remotes::install_github(`"cararthompson/ophelia"`, 
+     `"TopSecretAuthorisationKey"`)
+- Provide `ggplot` training and support in using the package
+- Keep an eye out for Ophelia plots in the wild! 
+
+:::
+
+
+# {background=#2C3D4F}
+
+::::{.columns}
+
+:::{.column width=50%}
+
+:::
+
+
+:::{.column width=50%}
+
+<center>
+<h1>Over to you!</h1>
+
+<br>
+
+hello@cararthompson.com
+
+Tw/Li: @cararthompson
+
+☕💻
+
+
+<span style=color:#28A569>____</span>
+<br><br>
+Dataviz Commissions<br>
+Dataviz Design Systems<br>
+Training & Consultations<br>
+</center>
+
+:::
+
+::::
+
+:::footer
+[cararthompson.com](https://www.cararthompson.com)
+:::
+
+
+

@@ -1,0 +1,237 @@
+# Exploring the LFP data and sketching out dataviz ideas
+
+library(tidyverse)
+
+# Read in anonymised data
+
+# There is no data with both billed and paid amounts (two different systems - C02 vs S01 and S02)
+
+
+# Colours:
+
+dashboard_colors <- c("non_lfp" = "#354085", # older system, purple: #4c5994
+                      "non_lfp_tab" = "#262E61",
+                      "lfp" = "#357B79", # newer system, green #595f0b
+                      "lfp_tab" = "#265A58",
+                      "practice_view" = "#E59024", # mountain top; #f78d16
+                      "practice_view_tab" = "#A7691A",
+                      "dobc_view" = "#0083BA", # teal #009cde
+                      "dobc_view_tab" = "#006088")
+
+monochromeR::view_palette(dashboard_colors)
+
+obc <- "#05c3de"
+
+monochromeR::generate_palette("#39367f", blend_colour = "#05c3de", n_colours = 12, view_palette = T)
+monochromeR::generate_palette("#0083BA","go_darker", n_colours = 4, view_palette = T)
+
+
+# LFP viz - per practioner
+lfp_codes <- readxl::read_excel(here::here("dataviz/lfp_codes.xlsx")) %>%
+  mutate(billed_fee_item = as.character(billed_fee_item))
+
+lfp_sample_billed <- arrow::read_parquet(here::here("data/lfp_sample.parquet")) %>%
+  filter(!is.na(billed_amount),
+         time_difference != 0,
+         date_reference < "2023-03-18"
+  ) %>%
+  select(-data_centre_seqnum.x) %>%
+  unique() %>%
+  mutate(billed_per_unit = as.numeric(billed_amount) / as.numeric(billed_srv_units),
+         week_day = lubridate::wday(date_reference, 
+                                    label = TRUE,
+                                    week_start = 1),
+         date_reference = as.factor(date_reference)) %>%
+  left_join(lfp_codes) %>%
+  replace_na(list(short_name = "Non-LFP"))
+
+
+
+# LFP How is time spent? 
+practitioner_days <- function(practitioner,
+                              df = lfp_sample_billed) {
+  
+  ggplot(filter(df,
+                fake_practitioner == practitioner)) +
+    geom_rect(data = filter(df %>% select(date_reference, week_day) %>% unique(),
+                            week_day %in% c("Sat", "Sun")),
+              aes(xmin = -Inf,xmax = Inf,
+                  ymin = -Inf,ymax = Inf),
+              fill = "#0083BA", color = NA,
+              alpha = 0.1) +
+    geom_rect(data = unique(filter(select(df, fake_practitioner, date_reference, week_day),
+                                   fake_practitioner == practitioner,
+                                   !week_day %in% c("Sat", "Sun"))),
+              aes(xmin = -Inf,xmax = Inf,
+                  ymin = -Inf,ymax = Inf),
+              fill = NA, color = NA,
+              alpha = 0.1) +
+    geom_segment(aes(x = start_time,
+                     xend = finish_time,
+                     y = billed_per_unit,
+                     yend = billed_per_unit,
+                     colour = short_name),
+                 size = 5,
+                 alpha = 0.8) +
+    scale_colour_manual(values = c("#354085", "#357B79",  "#E59024",  "#0083BA", "#006088")) +
+    scale_y_continuous(expand = c(2, 2)) +
+    facet_grid(date_reference ~ ., drop = FALSE) +
+    theme_minimal() +
+    # ggtext::geom_textbox(aes(x = start_time,
+    #                          y = billed_per_unit + 5,
+    #                          label = short_name),
+    #                      fill = NA,
+    #                      box.colour = NA,
+    #                      hjust = 0, 
+    #                      halign = 0,
+    #                      vjust = 0) +
+    labs(x = "Time",
+         colour = "Activity type") + 
+    theme(panel.grid.minor = element_blank(),
+          legend.position = "top",
+          strip.text.y = element_text(angle = 0),
+          strip.background = element_rect(colour = "#0083BA"),
+          panel.background = element_rect(colour = "#0083BA"),
+          text = element_text(family = "Noah", size = 15),
+          axis.title.y = element_blank(),
+          axis.text.y = element_blank())
+  
+}
+
+# Dawyne has overlapping data, needs to sort out
+# Fatima all clear, but some gaps? 
+practitioner_days("Regina") # Nice weekly pattern -> importance of showing several weeks
+ggsave(filename = here::here("dataviz/demo-images/calendar_regina.png"),
+       height = 8, width = 10)
+practitioner_days("Dwayne") # Some overlapping data -> chance to review and unpick
+ggsave(filename = here::here("dataviz/demo-images/calendar_dwayne.png"),
+       height = 8, width = 10)
+practitioner_days("Fatima") # Week 3 looks different, check why different
+ggsave(filename = here::here("dataviz/demo-images/calendar_fatima.png"),
+       height = 8, width = 10)
+
+# Some non lfp codes in the data - translate to lfp? 
+# Code not within the data - highlight? 
+# Highlight days when they are not working (or is it missing data?)
+# Highlight weekends to make patterns easier to see
+# Group codes by costings
+# Show mean fee billed per unit next to expected, so can spot discrepancies and where they've come from
+# Days in normal date format 
+
+
+lfp_code_amounts <- lfp_sample_billed %>%
+  group_by(billed_fee_item) %>%
+  summarise(billed_per_unit) %>%
+  unique()
+
+table(lfp_sample_billed$billed_fee_item,
+      lfp_sample_billed$billed_amount)
+
+# LFP activity at scale
+
+
+
+
+# LFP viz - per practioner
+lfp_sample_paid <- arrow::read_parquet(here::here("data/lfp_sample.parquet")) %>%
+  filter(!is.na(paid_amount),
+         time_difference != 0,
+         date_reference < "2023-03-15") %>%
+  mutate(billed_per_unit = as.numeric(billed_amount) / as.numeric(billed_srv_units),
+         week_day = lubridate::wday(date_reference, 
+                                    label = TRUE,
+                                    week_start = 1))
+
+
+lfp_sample_billed_paid <- arrow::read_parquet(here::here("data/new_lfp_all.parquet")) %>%
+  filter(date_reference < "2023-03-21") %>%
+  mutate(payment_status = case_when(transaction_balance < 0 ~ "Held",
+                                    TRUE ~ "Paid")) %>%
+  group_by(billed_fee_item, payment_status, fake_practitioner) %>%
+  summarise(amount = sum(billed_amount)) %>%
+  left_join(lfp_codes) %>%
+  filter(!is.na(billed_fee_item)) %>%
+  mutate(billed_fee_item = factor(billed_fee_item)) %>%
+  replace_na(list(code_group = "Non LFP")) %>%
+  rowwise() %>%
+  mutate(short_name = case_when(is.na(short_name) ~ billed_fee_item,
+                                TRUE ~ short_name))
+
+
+practitioner_pay_status_bar <- function(practitioner,
+                                        df = lfp_sample_billed_paid) {
+  
+  ggplot(filter(df,
+                fake_practitioner == practitioner)) +
+    geom_bar(aes(x = amount, 
+                 y = short_name,
+                 group = payment_status,
+                 fill = payment_status),
+             stat = "identity",
+             colour = "white") +
+    scale_fill_manual(values = c(Paid = dashboard_colors[["lfp"]],
+                                 Held = alpha(dashboard_colors[["lfp"]], 0.5))) +
+    facet_wrap(code_group ~ ., scales = "free_y", 
+               ncol = 1,
+               drop = FALSE) +
+    scale_y_discrete(limits = rev) +
+    scale_x_continuous(labels = function(x) paste0("$", prettyNum(x, big.mark = ","))) +
+    labs(fill = "Payment status",
+         x = "Amount") +
+    theme_minimal() +
+    theme(text = element_text(size = 15, family = "Noah"),
+          axis.title.y = element_blank(),
+          legend.position = "bottom",
+          strip.text = element_text(face = "bold"),
+          strip.background = element_rect(colour = dashboard_colors[["lfp"]],
+                                          fill = alpha(dashboard_colors[["lfp"]], 0.1)),
+          panel.background = element_rect(colour = dashboard_colors[["lfp"]]))
+    
+}
+
+practitioner_pay_status_bar("Fatima")
+ggsave(filename = here::here("dataviz/demo-images/activity_fatima.png"),
+       height = 6, width = 8)
+practitioner_pay_status_bar("Regina")
+ggsave(filename = here::here("dataviz/demo-images/activity_regina.png"),
+       height = 6, width = 8)
+practitioner_pay_status_bar("Dwayne")
+ggsave(filename = here::here("dataviz/demo-images/activity_dwayne.png"),
+       height = 6, width = 8)
+
+
+overall_pay_status_bar <- function(practitioner,
+                                   df = lfp_sample_billed_paid) {
+  
+  ggplot(df) +
+    geom_bar(aes(x = amount, 
+                 y = short_name,
+                 group = payment_status,
+                 fill = payment_status),
+             stat = "identity",
+             colour = "white", 
+             size = 0.1) +
+    scale_fill_manual(values = c(Paid = dashboard_colors[["lfp"]],
+                                 Held = alpha(dashboard_colors[["lfp"]], 0.5))) +
+    facet_wrap(code_group ~ ., scales = "free_y", 
+               ncol = 1,
+               drop = FALSE) +
+    scale_y_discrete(limits = rev) +
+    scale_x_continuous(labels = function(x) paste0("$", prettyNum(x, big.mark = ","))) +
+    labs(fill = "Payment status",
+         x = "Amount") +
+    theme_minimal() +
+    theme(text = element_text(size = 15, family = "Noah"),
+          axis.title.y = element_blank(),
+          legend.position = "bottom",
+          strip.text = element_text(face = "bold"),
+          strip.background = element_rect(colour = dashboard_colors[["lfp"]],
+                                          fill = alpha(dashboard_colors[["lfp"]], 0.1)),
+          panel.background = element_rect(colour = dashboard_colors[["lfp"]]))
+  
+}
+
+overall_pay_status_bar()
+ggsave(filename = here::here("dataviz/demo-images/activity_overall.png"),
+                             height = 6, width = 8)
+
