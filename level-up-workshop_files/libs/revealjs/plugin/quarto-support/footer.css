@@ -3,20 +3,21 @@
   position: fixed;
   bottom: 0;
   right: 12px;
+  margin-bottom: 6px;
   max-height: 2.2rem;
   height: 100%;
   width: auto;
+  z-index: 5;
 }
 
 .reveal .footer {
   display: block;
   position: fixed;
-  bottom: 18px;
+  bottom: 0px;
   width: 100%;
   margin: 0 auto;
   text-align: center;
-  font-size: 18px;
-  z-index: 2;
+  font-size: 16pt;
 }
 
 .reveal .footer > * {
@@ -70,12 +71,12 @@
 @media screen and (max-width: 800px) {
   .reveal .slide-logo {
     max-height: 1.1rem;
-    bottom: -2px;
+    bottom: 10px;
     right: 10px;
   }
   .reveal .footer {
-    font-size: 14px;
-    bottom: 12px;
+    font-size: 1.2em;
+    bottom: 0px;
   }
   .reveal .slide-number {
     font-size: 12px;
