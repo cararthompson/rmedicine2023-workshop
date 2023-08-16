@@ -1,5 +1,6 @@
-.Rproj.user*
+.Rproj.user/*
 .Rhistory
 .RData
 .Ruserdata
 dataviz-design-system.mp4
+.Rproj.user
